@@ -2,7 +2,7 @@
 
 This project uses ATP and WTA tennis match data to build a structured, analysis-ready data model in Snowflake. I'm using it to practise data warehouse design, dimensional modelling, dbt transformations, data quality testing, and documentation, as part of my transition from **Data Analysis to Analytics Engineering**.
 
-> **Current stage:** Snowflake setup and raw data load complete. The fact table grain has been defined and its design finalized. Next: building the transformation layer in dbt.
+> **Current stage:** Snowflake setup and raw data load complete. The fact table grain has been defined and its design finalised. Next: building the transformation layer in dbt.
 
 
 ## Project Goals
