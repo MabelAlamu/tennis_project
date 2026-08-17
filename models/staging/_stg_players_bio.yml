@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg_players_bio
+    description: "Player biographical attributes staged directly from the raw tennis-player feed. The source contains duplicate player IDs, so rows are preserved without deduplication."
+    columns:
+      - name: player_id
+        description: "Source identifier for the player."
+        data_tests:
+          - not_null
+          - unique
+      - name: player_name
+        description: "Player name as recorded in the source."
+        data_tests:
+          - not_null
+      - name: atpname
+        description: "ATP-formatted player name, when supplied."
+      - name: birthdate
+        description: "Player birth date represented as an integer in YYYYMMDD format."
+      - name: weight
+        description: "Player weight in kilograms, when supplied."
+      - name: height
+        description: "Player height in centimeters, when supplied."
+      - name: year_turned_pro
+        description: "Year in which the player turned professional, when supplied."
+      - name: birthplace
+        description: "Player birthplace as supplied by the source."
+      - name: coaches
+        description: "Player coaches as supplied by the source."
+      - name: player_hand
+        description: "{{ doc('player_hand')}}"
+      - name: player_backhand
+        description: "Player backhand style, when supplied."
+      - name: country_code
+        description: "IOC country code for the player, when supplied."
