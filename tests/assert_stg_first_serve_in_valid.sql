@@ -28,5 +28,5 @@ with combined as (
 
 select *
 from combined
-where (first_serve_in > 0 and first_serve_won > first_serve_in) -- assuming 0 means the data isn't recorded at source
-   or (total_service_points > 0 and first_serve_won > total_service_points) -- assuming 0 means the data isn't recorded at source
+where total_service_points > 0 -- assuming 0 means the data isn't recorded at source
+   and first_serve_in > total_service_points

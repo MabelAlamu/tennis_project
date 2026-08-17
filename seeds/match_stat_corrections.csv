@@ -1,0 +1,4 @@
+tourney_id,tourney_match_num,winner_id_fixed,reason
+2025-M-DC-2025-WG1-R1-SUI-IND-01,3,N897,'serve stats verified against external source and did not match- all serve stats untrustworthy. Nulled pending correction'
+2025-M-DC-2025-WG1-R1-POL-GBR-01,3,N771,'serve stats verified against external source and did not match- all serve stats untrustworthy. nulled pending correction'
+2019-7694,27,PD31,'internally inconsistent (1stIn exceeds svpt)- all serve stats untrustworthy. nulled pending correction'

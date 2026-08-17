@@ -1,0 +1,7 @@
+tests:
+  - name: assert_stg_player_name_maps_to_one_id
+    config:
+      severity: warn
+  - name: assert_stg_player_id_maps_to_one_name
+    config: 
+      severity: warn

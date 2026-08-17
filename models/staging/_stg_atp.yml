@@ -2,6 +2,13 @@ models:
   - name: stg_atp
     description: "ATP match results staged directly from the raw feed. One row represents a recorded match result; tournament and match-number combinations are not guaranteed to be unique in the source."
     columns:
+      - name: match_id
+        description: "Surrogate key. Uniqueness tested only from 1996 onward. Earlier Davis Cup round-robin data has known unresolved key collisions and is excluded from analysis in the intermediate layer."
+        data_tests:
+          - unique:
+             config: 
+              where: "tourney_date >= 19960101"
+          - not_null
       - name: tourney_id
         description: "Source identifier for the tournament edition containing the match."
         data_tests:
