@@ -48,7 +48,7 @@ models:
               values: ['R', 'L', 'A', 'U']
       - name: winner_ht
         description: "Height of the winning player in centimeters, when supplied."
-      - name: winner_country
+      - name: winner_country_code
         description: "Country code as defined by the international olympic committee for the winning player, when supplied."
       - name: winner_age
         description: "Age of the winning player at the time of the match."
@@ -78,7 +78,7 @@ models:
               values: ['R','L','A', 'U']
       - name: loser_ht
         description: "Height of the losing player in centimeters, when supplied."
-      - name: loser_country
+      - name: loser_country_code
         description: "Country code as defined by the international olympic committee for the losing player, when supplied."
       - name: loser_age
         description: "Age of the losing player at the time of the match."

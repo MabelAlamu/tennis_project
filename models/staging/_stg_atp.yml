@@ -35,6 +35,8 @@ models:
         description: "Match sequence number within the tournament feed"
       - name: winner_id
         description: "Source identifier for the winning player."
+      - name: winner_id_fixed
+        description: Corrected winner player_id. Resolves known data quality issues in the raw winner_id column. Falls back to the original winner_id when no correction or merge applies.
       - name: winner_seed
         description: "Tournament seed assigned to the winning player, when seeded."
       - name: winner_entry
@@ -65,6 +67,8 @@ models:
         description: "ATP ranking points held by the winning player at the time of the match."
       - name: loser_id
         description: "Source identifier for the losing player."
+      - name: loser_id_fixed
+        description: Corrected winner player_id. Resolves known data quality issues in the raw winner_id column. Falls back to the original winner_id when no correction or merge applies.
       - name: loser_seed
         description: "Tournament seed assigned to the losing player, when seeded."
       - name: loser_entry
