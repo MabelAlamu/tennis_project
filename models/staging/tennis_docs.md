@@ -24,7 +24,7 @@ One of the following values:
 {% enddocs %}
 
 {% docs player_entry%}
-Entry category for the losing player, such as wildcard or qualifier, when supplied.
+Entry category through which the pyaer joined the tournament draw.
 
 One of the following values: 
 | Abbreviation | Meaning           | Description                                                                                                                       |
@@ -36,7 +36,7 @@ One of the following values:
 | **ALT**      | Alternate         | Next player in line who got in due to a late withdrawal; usually pre-tournament and not necessarily from qualifying               |
 | **SE**       | Special Exempt    | Given a main draw spot because they were still competing in another tournament the previous week and couldn't play qualifying     |
 | **ITF**      | ITF Entry         | Typically a lower-level ITF-ranked player, or someone entering through an ITF-administered pathway rather than the ATP entry list |
-| **UG**       |                   |  |
+| **UP**       |                   |  |
 | **NG**       |                   |  |
 
 {% enddocs %}

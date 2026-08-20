@@ -1,9 +1,30 @@
 models:
   - name: stg_atp
     description: "ATP match results staged directly from the raw feed. One row represents a recorded match result; tournament and match-number combinations are not guaranteed to be unique in the source."
+    data_tests:
+     - first_serve_won_valid:
+        arguments: 
+         player_id: id_fixed
+         player_name: name
+     - first_serve_in_valid:
+        arguments: 
+         player_id: id_fixed
+         player_name: name
+     - player_id_maps_to_one_name:
+        arguments: 
+         player_id: id_fixed
+         player_name: name
+        config: 
+         severity: warn
+     - player_name_maps_to_one_id:
+        arguments: 
+         player_id: id_fixed
+         player_name: name
+        config: 
+         severity: warn
     columns:
       - name: match_id
-        description: "Surrogate key. Uniqueness tested only from 1996 onward. Earlier Davis Cup round-robin data has known unresolved key collisions and is excluded from analysis in the intermediate layer."
+        description: "Identifier for the recorded match. Uniqueness tested only from 1996 onward. Earlier Davis Cup round-robin data has known unresolved key collisions and is excluded from analysis in the intermediate layer."
         data_tests:
           - unique:
              config: 
@@ -20,11 +41,11 @@ models:
       - name: surface
         description: "Court surface recorded for the tournament."
       - name: draw_size
-        description: "Size of the tournament draw."
+        description: "Number of player positions in the tournament draw"
       - name: tourney_level
         description: "{{ doc('atp_tourney_level') }}"
       - name: indoor
-        description: "Indicator showing whether the tournament was played indoors or outdoors."
+        description: "Tournament setting: I for idoor or O for outdoor"
         data_tests:
           - accepted_values:
              arguments: 
@@ -32,11 +53,11 @@ models:
       - name: tourney_date
         description: "Tournament start date represented as an integer in YYYYMMDD format."
       - name: tourney_match_num
-        description: "Match sequence number within the tournament feed"
+        description: "Source assigned sequence number for the match within the tournament"
       - name: winner_id
         description: "Source identifier for the winning player."
       - name: winner_id_fixed
-        description: Corrected winner player_id. Resolves known data quality issues in the raw winner_id column. Falls back to the original winner_id when no correction or merge applies.
+        description: "Canonoical identifier for the winning player, used to represent the same play consistently across records." 
       - name: winner_seed
         description: "Tournament seed assigned to the winning player, when seeded."
       - name: winner_entry
@@ -54,7 +75,7 @@ models:
         data_tests:
           - accepted_values:
              arguments: 
-              values: ['R', 'L', 'A']
+              values: ['R', 'L', 'A', 'U']
       - name: winner_ht
         description: "Height of the winning player in centimeters, when supplied."
       - name: winner_country_code
@@ -68,7 +89,7 @@ models:
       - name: loser_id
         description: "Source identifier for the losing player."
       - name: loser_id_fixed
-        description: Corrected winner player_id. Resolves known data quality issues in the raw winner_id column. Falls back to the original winner_id when no correction or merge applies.
+        description: "Canonoical identifier for the losing player, used to represent the same play consistently across records." 
       - name: loser_seed
         description: "Tournament seed assigned to the losing player, when seeded."
       - name: loser_entry
@@ -86,7 +107,7 @@ models:
         data_tests:
           - accepted_values:
              arguments: 
-              values: ['R','L','A']
+              values: ['R','L','A','U']
       - name: loser_ht
         description: "Height of the losing player in centimeters, when supplied."
       - name: loser_country_code
