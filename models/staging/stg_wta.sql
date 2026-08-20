@@ -1,69 +1,84 @@
-with 
-
-source as (
-
-    select * from {{ source('raw', 'wta_matches') }}
-
+with source as (
+    {{ dbt_utils.deduplicate(
+        relation=source('raw', 'wta_matches'),
+        partition_by='tourney_id, tourney_date, winner_id, loser_id, round',
+        order_by="match_num",
+    )
+    }}
 ),
 
 renamed as (
 
     select
-        tourney_id,
-        tourney_name,
-        surface,
-        draw_size,
-        tourney_level,
-        indoor,
-        tourney_date,
-        match_num as tourney_match_num,
-        winner_id,
-        winner_seed,
-        upper(trim(winner_entry)) as winner_entry,
-        winner_name,
-        winner_hand,
-        winner_ht,
-        winner_ioc as winner_country_code,
-        winner_age,
-        winner_rank,
-        winner_rank_points,
-        loser_id,
-        loser_seed,
-        upper(trim(loser_entry)) as loser_entry,
-        loser_name,
-        loser_hand,
-        loser_ht,
-        loser_ioc as loser_country_code,
-        loser_age,
-        loser_rank,
-        loser_rank_points,
-        score,
-        best_of,
-        round,
-        minutes as match_duration,
-        w_ace,
-        w_df,
-        w_svpt,
-        w_1stin,
-        w_1stwon,
-        w_2ndwon,
-        w_svgms,
-        w_bpsaved,
-        w_bpfaced,
-        l_ace,
-        l_df,
-        l_svpt,
-        l_1stin,
-        l_1stwon,
-        l_2ndwon,
-        l_svgms,
-        l_bpsaved,
-        l_bpfaced
-
-    from source
+        s.tourney_id,
+        s.tourney_name,
+        s.surface,
+        s.draw_size,
+        s.tourney_level,
+        s.indoor,
+        to_date(cast(s.tourney_date as varchar), 'YYYYMMDD') as tourney_date,
+        s.match_num as tourney_match_num,
+        s.winner_id,
+        -- Some entry codes are compound values like '6/ITF' (seed + entry method
+        -- crammed into one field). If winner/loser_seed is null but the
+        -- seed is embedded in loser_entry, extract and backfill it here.
+        coalesce(s.winner_seed, try_to_number(split_part(s.winner_entry, '/', 1))) as winner_seed,
+        -- Split off the entry-method half of any compound value (e.g. '6/ITF' -> 'ITF'),
+        -- leaving plain codes (WC, Q, LL, etc.) untouched. Also standardizes casing/
+        -- whitespace (Alt/alt -> ALT, ' wc' -> 'WC') so accepted_values matches cleanly.
+        upper(trim(case when winner_entry like '%/%' then split_part(winner_entry, '/', 2) else winner_entry end)) as winner_entry,
+        s.winner_name,
+        s.winner_hand,
+        s.winner_ht,
+        s.winner_ioc as winner_country_code,
+        s.winner_age,
+        s.winner_rank,
+        s.winner_rank_points,
+        s.loser_id,
+        coalesce(s.loser_seed, try_to_number(split_part(s.loser_entry, '/', 1))) as loser_seed,
+        upper(trim(case when loser_entry like '%/%' then split_part(loser_entry, '/', 2) else loser_entry end)) as loser_entry,
+        s.loser_name,
+        s.loser_hand,
+        s.loser_ht,
+        s.loser_ioc as loser_country_code,
+        s.loser_age,
+        s.loser_rank,
+        s.loser_rank_points,
+        s.score,
+        s.best_of,
+        s.round,
+        s.minutes as match_duration,
+        -- Null out the entire serve-stats block (all w_*/l_* columns) for any
+        -- match flagged in wta_match_stat_corrections (seed). These matches
+        -- failed the first_serve_won_valid / first_serve_in_valid tests with
+        -- internally inconsistent numbers that couldn't be confidently corrected, 
+        -- so the whole stat line is nulled.
+        --
+        -- Looping over stat_columns instead of writing 18 individual
+        -- `iff(...)` lines by hand with one flag check (msc.tourney_match_num
+        -- is not null). This applies identically to every column, so the Jinja
+        -- for-loop generates all 18 lines from one list.
+        {% set stat_columns = [
+            'w_ace', 'w_df', 'w_svpt', 'w_1stIn', 'w_1stWon', 'w_2ndWon', 'w_svgms', 'w_bpSaved', 'w_bpFaced',
+            'l_ace', 'l_df', 'l_svpt', 'l_1stIn', 'l_1stWon', 'l_2ndWon', 'l_svgms', 'l_bpSaved', 'l_bpFaced'] %}
+        {%-for col in stat_columns-%}
+        iff(msc.tourney_match_num is not null, null, s.{{ col }}) as {{ col }}{{ "," if not loop.last }}
+        {% endfor %}
+     
+    from source as s
+    -- fix for incorrect stats
+    left join {{ ref('wta_match_stat_corrections') }} as msc
+        on  s.tourney_id = msc.tourney_id
+        and s.match_num = msc.tourney_match_num
+        and s.winner_id = msc.winner_id
 
 )
 
---select * from renamed
+select
+    {{ dbt_utils.generate_surrogate_key(['tourney_id', 'tourney_date', 'winner_id', 'loser_id', 'round']) }} as match_id,
+    r.*
+from renamed as r
 
-select distinct winner_entry from renamed UNION ALL select distinct loser_entry from renamed
+
+
+

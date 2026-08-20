@@ -24,20 +24,23 @@ One of the following values:
 {% enddocs %}
 
 {% docs player_entry%}
-Entry category through which the pyaer joined the tournament draw.
+Entry category through which the player joined the tournament draw.
 
 One of the following values: 
-| Abbreviation | Meaning           | Description                                                                                                                       |
-| ------------ | ----------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **WC**       | Wild Card         | Given a spot without qualifying, often for local players, past champions, or comeback players                                     |
-| **Q**        | Qualifier         | Won through the qualifying rounds                                                                                                 |
-| **LL**       | Lucky Loser       | Lost in qualifying but got into the main draw due to a withdrawal                                                                 |
-| **PR**       | Protected Ranking | Used an injury-protected ranking to enter, bypassing the normal cutoff                                                            |
-| **ALT**      | Alternate         | Next player in line who got in due to a late withdrawal; usually pre-tournament and not necessarily from qualifying               |
-| **SE**       | Special Exempt    | Given a main draw spot because they were still competing in another tournament the previous week and couldn't play qualifying     |
-| **ITF**      | ITF Entry         | Typically a lower-level ITF-ranked player, or someone entering through an ITF-administered pathway rather than the ATP entry list |
-| **UP**       |                   |  |
-| **NG**       |                   |  |
+| Abbreviation | Official Name | Description & Context |
+| :--- | :--- | :--- |
+| **WC** | Wild Card | A spot given at the tournament discretion to popular local players, rising stars, or top players returning from absence. |
+| **Q** | Qualifier | A player who won their way into the main draw by winning preliminary qualification matches. |
+| **LL** | Lucky Loser | A player who lost in the final round of qualifying but got into the main draw anyway to replace a last-minute withdrawal. |
+| **PR** | Protected Ranking | A player using a frozen ranking slot allowed by the tour due to a long-term injury or maternity leave. |
+| **SR** | Special Ranking | The exact same mechanism as PR. The WTA tour uses "Special Ranking", while the ATP tour uses "Protected Ranking". |
+| **ALT** | Alternate | A player next in line to get into the tournament if an accepted player withdraws before the event starts. |
+| **A** | Alternate | A shorthand abbreviation for Alternate, frequently used in older database schemas or live chair-umpire data feeds. |
+| **SE** | Special Exempt | A player who couldn't play the qualifying matches because they were busy winning or playing in the finals of a tournament the previous week. |
+| **ITF** | ITF Place | An Olympic-specific entry given to continental games champions (e.g., Asian Games gold medallists) or former Olympic champions. |
+| **IP** | ITF Place | The older/historical acronym for "ITF Place" used in Olympic draws prior to Tokyo 2020. |
+| **UP** | Universality Place | An Olympic-specific invitation granted to under-represented nations to ensure global representation. |
+| **NG** | Next Gen | NG represents modern ATP Accelerator Programmes meant for direct developmental entry
 
 {% enddocs %}
 
