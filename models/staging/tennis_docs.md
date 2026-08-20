@@ -1,16 +1,27 @@
 {% docs player_hand %}
-Playing hand of the winning player, when supplied.
+Player's dominant playing hand, with surrounding whitespace removed and blank values normalised to null.
 
 One of the following values: 
-| player_hand | definition                                      |
+| player_hand | Description                                     |
 |------------ |-------------------------------------------------|
 | **R**       | Player is right handed                          |
 | **L**       | Player is left handed                           |
 | **A**       | Player is ambidextrous, uses both hands to play |
-| **U**       | Unknown, not recorded in source                 |
+| **U**       | Unknown                                         |
 
 {% enddocs %}
 
+{% docs player_backhand %}
+Player's backhand style, with surrounding whitespace removed and blank values normalised to null.
+
+One of the following values: 
+| player_backhand | Description                      |
+|------------     |----------------------------------|
+| **1H**          | One-handed                       |
+| **2H**          | Two-handed                       |
+| **U**           | Unknown                          |
+
+{% enddocs %}
 
 {% docs player_entry%}
 Entry category for the losing player, such as wildcard or qualifier, when supplied.
