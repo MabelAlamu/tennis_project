@@ -19,14 +19,9 @@ renamed as (
         to_date(cast(s.tourney_date as varchar), 'YYYYMMDD') as tourney_date,
         s.match_num as tourney_match_num,
         s.winner_id,
-        -- Some entry codes are compound values like '6/ITF' (seed + entry method
-        -- crammed into one field). If winner/loser_seed is null but the
-        -- seed is embedded in loser_entry, extract and backfill it here.
-        coalesce(s.winner_seed, try_to_number(split_part(s.winner_entry, '/', 1))) as winner_seed,
-        -- Split off the entry-method half of any compound value (e.g. '6/ITF' -> 'ITF'),
-        -- leaving plain codes (WC, Q, LL, etc.) untouched. Also standardizes casing/
-        -- whitespace (Alt/alt -> ALT, ' wc' -> 'WC') so accepted_values matches cleanly.
-        upper(trim(case when winner_entry like '%/%' then split_part(winner_entry, '/', 2) else winner_entry end)) as winner_entry,
+        s.winner_id as winner_id_fixed,
+        {{ clean_numeric_seed ('s.winner_seed', 's.winner_entry')}} as winner_seed,
+        {{ clean_entry_code('s.winner_entry','s.winner_seed')}} as winner_entry,
         s.winner_name,
         s.winner_hand,
         s.winner_ht,
@@ -35,8 +30,9 @@ renamed as (
         s.winner_rank,
         s.winner_rank_points,
         s.loser_id,
-        coalesce(s.loser_seed, try_to_number(split_part(s.loser_entry, '/', 1))) as loser_seed,
-        upper(trim(case when loser_entry like '%/%' then split_part(loser_entry, '/', 2) else loser_entry end)) as loser_entry,
+        s.loser_id as loser_id_fixed,
+        {{ clean_numeric_seed ('s.loser_seed', 's.loser_entry')}} as loser_seed,
+        {{ clean_entry_code('s.loser_entry', 's.loser_seed') }} as loser_entry,
         s.loser_name,
         s.loser_hand,
         s.loser_ht,
@@ -79,6 +75,4 @@ select
     r.*
 from renamed as r
 
-
-
-
+--select distinct winner_seed from renamed union all select distinct loser_seed from renamed

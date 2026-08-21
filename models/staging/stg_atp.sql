@@ -47,8 +47,8 @@ renamed as (
         f.match_num as tourney_match_num,
         f.winner_id,
         f.winner_id_fixed,
-        f.winner_seed,
-        f.winner_entry,
+        {{ clean_numeric_seed ('f.winner_seed', 'f.winner_entry')}} as winner_seed,
+        {{ clean_entry_code('f.winner_entry','f.winner_seed')}} as winner_entry,
         f.winner_name,
         f.winner_hand,
         f.winner_ht,
@@ -58,8 +58,8 @@ renamed as (
         f.winner_rank_points,
         f.loser_id,
         f.loser_id_fixed,
-        f.loser_seed,
-        f.loser_entry,
+        {{ clean_numeric_seed ('f.loser_seed', 'f.loser_entry')}} as loser_seed,
+        {{ clean_entry_code('f.loser_entry', 'f.loser_seed') }} as loser_entry,
         f.loser_name,
         f.loser_hand,
         f.loser_ht,
@@ -96,7 +96,6 @@ renamed as (
 
 )
 
-
 select
     {{ dbt_utils.generate_surrogate_key(['tourney_id', 'tourney_date', 'winner_id_fixed', 'loser_id_fixed', 'round']) }} as match_id,
     r.*
@@ -106,3 +105,4 @@ qualify row_number() over (
     order by tourney_match_num
 ) = 1
 
+--select distinct winner_seed from renamed union all select distinct loser_seed from renamed
