@@ -110,12 +110,20 @@ models:
         description: "{{ doc('l_bpfaced') }}"
       - name: tour
         description: "{{ doc('tour') }}"
+        data_tests:
+          - not_null
+          - accepted_values:
+             arguments: 
+              values: ['ATP','WTA']
 
   - name: int_matches_filtered
-    description: One row per recorded ATP or WTA match from January 1, 1996 onward, the supported analysis period.
+    description: One row per recorded ATP or WTA match from January 1, 2000 onward, the supported analysis period.
     columns:
       - name: match_id
         description: "{{ doc('match_id') }}"
+        data_tests:
+          - not_null
+          - unique
       - name: tourney_id
         description: "{{ doc('tourney_id') }}"
       - name: tourney_name
@@ -180,6 +188,10 @@ models:
         description: "{{ doc('score') }}"
       - name: best_of
         description: "{{ doc('best_of') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: [3,5]
       - name: round
         description: "{{ doc('round') }}"
       - name: match_duration
