@@ -1,0 +1,38 @@
+macros:
+  - name: clean_entry_code
+    description: >
+      Returns a cleaned entry-method code. Handles two known source issues:
+      compound values like '6/ITF' (splits off the entry-method half), and
+      entry codes leaked into the seed column instead of entry (rescues
+      them here when entry itself is blank). Standardizes casing/whitespace
+      so accepted_values tests match cleanly.
+    arguments:
+      - name: entry_col
+        type: string
+        description: >
+         Represents how the player entered the tournament, such as wildcard, qualifier, alternate, or lucky loser. 
+         Entry column reference to clean, e.g. 's.winner_entry'.
+      - name: seed_col
+        type: string
+        description: >
+         Represents the player’s assigned tournament seed and may contain a misplaced entry designation in source data.
+         Corresponding seed column, used as a fallback source for leaked entry codes.
+
+  - name: clean_numeric_seed
+    description: >
+      Returns the tournament seed as a clean numeric value. Tries the seed
+      column first (safely returns null instead of erroring on leaked entry
+      codes like WC/Q/ALT/LL). If that's not a valid number, falls back to
+      extracting a numeric seed from a compound entry value like '6/ITF'
+      (the source's format for combined seed + entry method).
+    arguments:
+      - name: seed_col
+        type: string
+        description: >
+         Represents the player’s assigned numeric seed within the tournament.
+         Column reference to clean, e.g. 's.winner_seed'.
+      - name: entry_col
+        type: string
+        description: >
+         Represents how the player entered the tournament and may contain a combined seed and entry designation.
+         Corresponding entry column, used as a fallback source for a compound seed/entry value.
