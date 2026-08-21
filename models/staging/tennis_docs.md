@@ -82,3 +82,222 @@ One of the following values:
 | **D** | **Billie Jean King Cup** | Women's international team competition representing national teams (formerly Fed Cup / Federation Cup). |
 | **O** | **Olympic Games** | The Olympic Tennis Event held every four years. |
 {% enddocs %}
+
+
+{# Intermediate match model column descriptions #}
+
+{% docs match_id %}
+Identifier for a recorded match within the ATP or WTA dataset.
+{% enddocs %}
+
+{% docs tourney_id %}
+Source identifier for the tournament edition containing the match.
+{% enddocs %}
+
+{% docs tourney_name %}
+Name of the tournament in which the match was played.
+{% enddocs %}
+
+{% docs surface %}
+Court surface on which the tournament was played.
+{% enddocs %}
+
+{% docs draw_size %}
+Number of player slots in the tournament draw.
+{% enddocs %}
+
+{% docs tourney_level %}
+Tour-specific competition tier assigned to the tournament.
+{% enddocs %}
+
+{% docs indoor %}
+Whether the tournament was played indoors or outdoors.
+{% enddocs %}
+
+{% docs tourney_date %}
+Date the tournament began.
+{% enddocs %}
+
+{% docs tourney_match_num %}
+Match sequence number within the tournament record.
+{% enddocs %}
+
+{% docs winner_id %}
+Source identifier for the winning player.
+{% enddocs %}
+
+{% docs winner_id_fixed %}
+Canonical identifier representing the winning player consistently across records.
+{% enddocs %}
+
+{% docs winner_seed %}
+Tournament seed assigned to the winning player, when seeded.
+{% enddocs %}
+
+{% docs winner_entry %}
+Entry category through which the winning player joined the tournament draw.
+{% enddocs %}
+
+{% docs winner_name %}
+Name of the winning player.
+{% enddocs %}
+
+{% docs winner_hand %}
+Dominant playing hand of the winning player.
+{% enddocs %}
+
+{% docs winner_ht %}
+Height of the winning player in centimeters, when available.
+{% enddocs %}
+
+{% docs winner_country_code %}
+IOC country code representing the winning player.
+{% enddocs %}
+
+{% docs winner_age %}
+Age of the winning player at the time of the match.
+{% enddocs %}
+
+{% docs winner_rank %}
+ATP or WTA ranking of the winning player at the time of the match.
+{% enddocs %}
+
+{% docs winner_rank_points %}
+ATP or WTA ranking points held by the winning player at the time of the match.
+{% enddocs %}
+
+{% docs loser_id %}
+Source identifier for the losing player.
+{% enddocs %}
+
+{% docs loser_id_fixed %}
+Canonical identifier representing the losing player consistently across records.
+{% enddocs %}
+
+{% docs loser_seed %}
+Tournament seed assigned to the losing player, when seeded.
+{% enddocs %}
+
+{% docs loser_entry %}
+Entry category through which the losing player joined the tournament draw.
+{% enddocs %}
+
+{% docs loser_name %}
+Name of the losing player.
+{% enddocs %}
+
+{% docs loser_hand %}
+Dominant playing hand of the losing player.
+{% enddocs %}
+
+{% docs loser_ht %}
+Height of the losing player in centimeters, when available.
+{% enddocs %}
+
+{% docs loser_country_code %}
+IOC country code representing the losing player.
+{% enddocs %}
+
+{% docs loser_age %}
+Age of the losing player at the time of the match.
+{% enddocs %}
+
+{% docs loser_rank %}
+ATP or WTA ranking of the losing player at the time of the match.
+{% enddocs %}
+
+{% docs loser_rank_points %}
+ATP or WTA ranking points held by the losing player at the time of the match.
+{% enddocs %}
+
+{% docs score %}
+Final score recorded for the match.
+{% enddocs %}
+
+{% docs best_of %}
+Maximum number of sets scheduled for the match.
+{% enddocs %}
+
+{% docs round %}
+Tournament round in which the match was played.
+{% enddocs %}
+
+{% docs match_duration %}
+Duration of the match in minutes, when available.
+{% enddocs %}
+
+{% docs w_ace %}
+Aces served by the winning player.
+{% enddocs %}
+
+{% docs w_df %}
+Double faults served by the winning player.
+{% enddocs %}
+
+{% docs w_svpt %}
+Total service points played by the winning player.
+{% enddocs %}
+
+{% docs w_1stin %}
+First serves made by the winning player.
+{% enddocs %}
+
+{% docs w_1stwon %}
+First-serve points won by the winning player.
+{% enddocs %}
+
+{% docs w_2ndwon %}
+Second-serve points won by the winning player.
+{% enddocs %}
+
+{% docs w_svgms %}
+Service games played by the winning player.
+{% enddocs %}
+
+{% docs w_bpsaved %}
+Break points saved by the winning player.
+{% enddocs %}
+
+{% docs w_bpfaced %}
+Break points faced by the winning player.
+{% enddocs %}
+
+{% docs l_ace %}
+Aces served by the losing player.
+{% enddocs %}
+
+{% docs l_df %}
+Double faults served by the losing player.
+{% enddocs %}
+
+{% docs l_svpt %}
+Total service points played by the losing player.
+{% enddocs %}
+
+{% docs l_1stin %}
+First serves made by the losing player.
+{% enddocs %}
+
+{% docs l_1stwon %}
+First-serve points won by the losing player.
+{% enddocs %}
+
+{% docs l_2ndwon %}
+Second-serve points won by the losing player.
+{% enddocs %}
+
+{% docs l_svgms %}
+Service games played by the losing player.
+{% enddocs %}
+
+{% docs l_bpsaved %}
+Break points saved by the losing player.
+{% enddocs %}
+
+{% docs l_bpfaced %}
+Break points faced by the losing player.
+{% enddocs %}
+
+{% docs tour %}
+Professional tour associated with the match: ATP or WTA.
+{% enddocs %}

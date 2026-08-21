@@ -1,0 +1,224 @@
+models:
+  - name: int_matches_unioned
+    description: One row per recorded ATP or WTA match, including tournament, player, result, ranking, and serve statistics.
+    columns:
+      - name: match_id
+        description: "{{ doc('match_id') }}"
+      - name: tourney_id
+        description: "{{ doc('tourney_id') }}"
+      - name: tourney_name
+        description: "{{ doc('tourney_name') }}"
+      - name: surface
+        description: "{{ doc('surface') }}"
+      - name: draw_size
+        description: "{{ doc('draw_size') }}"
+      - name: tourney_level
+        description: "{{ doc('tourney_level') }}"
+      - name: indoor
+        description: "{{ doc('indoor') }}"
+      - name: tourney_date
+        description: "{{ doc('tourney_date') }}"
+      - name: tourney_match_num
+        description: "{{ doc('tourney_match_num') }}"
+      - name: winner_id
+        description: "{{ doc('winner_id') }}"
+      - name: winner_id_fixed
+        description: "{{ doc('winner_id_fixed') }}"
+      - name: winner_seed
+        description: "{{ doc('winner_seed') }}"
+      - name: winner_entry
+        description: "{{ doc('winner_entry') }}"
+      - name: winner_name
+        description: "{{ doc('winner_name') }}"
+      - name: winner_hand
+        description: "{{ doc('winner_hand') }}"
+      - name: winner_ht
+        description: "{{ doc('winner_ht') }}"
+      - name: winner_country_code
+        description: "{{ doc('winner_country_code') }}"
+      - name: winner_age
+        description: "{{ doc('winner_age') }}"
+      - name: winner_rank
+        description: "{{ doc('winner_rank') }}"
+      - name: winner_rank_points
+        description: "{{ doc('winner_rank_points') }}"
+      - name: loser_id
+        description: "{{ doc('loser_id') }}"
+      - name: loser_id_fixed
+        description: "{{ doc('loser_id_fixed') }}"
+      - name: loser_seed
+        description: "{{ doc('loser_seed') }}"
+      - name: loser_entry
+        description: "{{ doc('loser_entry') }}"
+      - name: loser_name
+        description: "{{ doc('loser_name') }}"
+      - name: loser_hand
+        description: "{{ doc('loser_hand') }}"
+      - name: loser_ht
+        description: "{{ doc('loser_ht') }}"
+      - name: loser_country_code
+        description: "{{ doc('loser_country_code') }}"
+      - name: loser_age
+        description: "{{ doc('loser_age') }}"
+      - name: loser_rank
+        description: "{{ doc('loser_rank') }}"
+      - name: loser_rank_points
+        description: "{{ doc('loser_rank_points') }}"
+      - name: score
+        description: "{{ doc('score') }}"
+      - name: best_of
+        description: "{{ doc('best_of') }}"
+      - name: round
+        description: "{{ doc('round') }}"
+      - name: match_duration
+        description: "{{ doc('match_duration') }}"
+      - name: w_ace
+        description: "{{ doc('w_ace') }}"
+      - name: w_df
+        description: "{{ doc('w_df') }}"
+      - name: w_svpt
+        description: "{{ doc('w_svpt') }}"
+      - name: w_1stin
+        description: "{{ doc('w_1stin') }}"
+      - name: w_1stwon
+        description: "{{ doc('w_1stwon') }}"
+      - name: w_2ndwon
+        description: "{{ doc('w_2ndwon') }}"
+      - name: w_svgms
+        description: "{{ doc('w_svgms') }}"
+      - name: w_bpsaved
+        description: "{{ doc('w_bpsaved') }}"
+      - name: w_bpfaced
+        description: "{{ doc('w_bpfaced') }}"
+      - name: l_ace
+        description: "{{ doc('l_ace') }}"
+      - name: l_df
+        description: "{{ doc('l_df') }}"
+      - name: l_svpt
+        description: "{{ doc('l_svpt') }}"
+      - name: l_1stin
+        description: "{{ doc('l_1stin') }}"
+      - name: l_1stwon
+        description: "{{ doc('l_1stwon') }}"
+      - name: l_2ndwon
+        description: "{{ doc('l_2ndwon') }}"
+      - name: l_svgms
+        description: "{{ doc('l_svgms') }}"
+      - name: l_bpsaved
+        description: "{{ doc('l_bpsaved') }}"
+      - name: l_bpfaced
+        description: "{{ doc('l_bpfaced') }}"
+      - name: tour
+        description: "{{ doc('tour') }}"
+
+  - name: int_matches_filtered
+    description: One row per recorded ATP or WTA match from January 1, 1996 onward, the supported analysis period.
+    columns:
+      - name: match_id
+        description: "{{ doc('match_id') }}"
+      - name: tourney_id
+        description: "{{ doc('tourney_id') }}"
+      - name: tourney_name
+        description: "{{ doc('tourney_name') }}"
+      - name: surface
+        description: "{{ doc('surface') }}"
+      - name: draw_size
+        description: "{{ doc('draw_size') }}"
+      - name: tourney_level
+        description: "{{ doc('tourney_level') }}"
+      - name: indoor
+        description: "{{ doc('indoor') }}"
+      - name: tourney_date
+        description: Date the tournament began
+      - name: tourney_match_num
+        description: "{{ doc('tourney_match_num') }}"
+      - name: winner_id
+        description: "{{ doc('winner_id') }}"
+      - name: winner_id_fixed
+        description: "{{ doc('winner_id_fixed') }}"
+      - name: winner_seed
+        description: "{{ doc('winner_seed') }}"
+      - name: winner_entry
+        description: "{{ doc('winner_entry') }}"
+      - name: winner_name
+        description: "{{ doc('winner_name') }}"
+      - name: winner_hand
+        description: "{{ doc('winner_hand') }}"
+      - name: winner_ht
+        description: "{{ doc('winner_ht') }}"
+      - name: winner_country_code
+        description: "{{ doc('winner_country_code') }}"
+      - name: winner_age
+        description: "{{ doc('winner_age') }}"
+      - name: winner_rank
+        description: "{{ doc('winner_rank') }}"
+      - name: winner_rank_points
+        description: "{{ doc('winner_rank_points') }}"
+      - name: loser_id
+        description: "{{ doc('loser_id') }}"
+      - name: loser_id_fixed
+        description: "{{ doc('loser_id_fixed') }}"
+      - name: loser_seed
+        description: "{{ doc('loser_seed') }}"
+      - name: loser_entry
+        description: "{{ doc('loser_entry') }}"
+      - name: loser_name
+        description: "{{ doc('loser_name') }}"
+      - name: loser_hand
+        description: "{{ doc('loser_hand') }}"
+      - name: loser_ht
+        description: "{{ doc('loser_ht') }}"
+      - name: loser_country_code
+        description: "{{ doc('loser_country_code') }}"
+      - name: loser_age
+        description: "{{ doc('loser_age') }}"
+      - name: loser_rank
+        description: "{{ doc('loser_rank') }}"
+      - name: loser_rank_points
+        description: "{{ doc('loser_rank_points') }}"
+      - name: score
+        description: "{{ doc('score') }}"
+      - name: best_of
+        description: "{{ doc('best_of') }}"
+      - name: round
+        description: "{{ doc('round') }}"
+      - name: match_duration
+        description: "{{ doc('match_duration') }}"
+      - name: w_ace
+        description: "{{ doc('w_ace') }}"
+      - name: w_df
+        description: "{{ doc('w_df') }}"
+      - name: w_svpt
+        description: "{{ doc('w_svpt') }}"
+      - name: w_1stin
+        description: "{{ doc('w_1stin') }}"
+      - name: w_1stwon
+        description: "{{ doc('w_1stwon') }}"
+      - name: w_2ndwon
+        description: "{{ doc('w_2ndwon') }}"
+      - name: w_svgms
+        description: "{{ doc('w_svgms') }}"
+      - name: w_bpsaved
+        description: "{{ doc('w_bpsaved') }}"
+      - name: w_bpfaced
+        description: "{{ doc('w_bpfaced') }}"
+      - name: l_ace
+        description: "{{ doc('l_ace') }}"
+      - name: l_df
+        description: "{{ doc('l_df') }}"
+      - name: l_svpt
+        description: "{{ doc('l_svpt') }}"
+      - name: l_1stin
+        description: "{{ doc('l_1stin') }}"
+      - name: l_1stwon
+        description: "{{ doc('l_1stwon') }}"
+      - name: l_2ndwon
+        description: "{{ doc('l_2ndwon') }}"
+      - name: l_svgms
+        description: "{{ doc('l_svgms') }}"
+      - name: l_bpsaved
+        description: "{{ doc('l_bpsaved') }}"
+      - name: l_bpfaced
+        description: "{{ doc('l_bpfaced') }}"
+      - name: tour
+        description: "{{ doc('tour') }}"
