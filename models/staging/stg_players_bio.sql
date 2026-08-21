@@ -1,9 +1,11 @@
-with 
-
-source as (
-
-    select * from {{ source('raw', 'players') }}
-
+with source as (
+    {{ dbt_utils.deduplicate(
+    relation=source('raw', 'players'),
+    partition_by='id, upper(player), birthdate, birthplace, ioc',
+    order_by="atpname",
+   )
+   }} -- there are duplicated rows with player and atpname as the difference because of varying letter cases,
+      -- used this macro to filter out the duplicates 
 ),
 
 renamed as (
@@ -12,17 +14,16 @@ renamed as (
         id as player_id,
         player as player_name,
         atpname,
-        birthdate as dob,
+        to_date(cast(birthdate as varchar), 'YYYYMMDD') as birthdate,
         weight,
         height,
         turnedpro as year_turned_pro,
         birthplace,
-        coaches,
-        hand as player_hand,
-        backhand as player_backhand,
-        ioc as country_code
-    -- there are two rows that are duplicated, used qualify to filter out the duplicates  
-    from source qualify row_number() over (partition by player_id order by player_id) = 1
+        nullif(trim(coaches),'') as coaches,
+        nullif(trim(hand),'') as player_hand,
+        nullif(trim(backhand),'') as player_backhand,
+        nullif(trim(ioc),'') as country_code 
+    from source 
 
 )
 

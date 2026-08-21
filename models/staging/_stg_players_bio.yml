@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: stg_players_bio
-    description: "Player biographical attributes staged directly from the raw tennis-player feed. The source contains duplicate player IDs, so rows are preserved without deduplication."
+    description: "Player biographical attributes staged from the raw players feed. Records sharing a player ID, case-insensitive player name, birth date, birthplace, and IOC country code are deduplicated, ordered by ATP-formatted name."
     columns:
       - name: player_id
         description: "Source identifier for the player."
@@ -10,26 +10,38 @@ models:
           - not_null
           - unique
       - name: player_name
-        description: "Player name as recorded in the source."
+        description: "Player's full name."
         data_tests:
           - not_null
       - name: atpname
-        description: "ATP-formatted player name, when supplied."
+        description: "Player's name as published by the ATP."
       - name: birthdate
-        description: "Player birth date represented as an integer in YYYYMMDD format."
+        description: "Date the player was born. Converted from the source YYYYMMDD value to a date."
       - name: weight
-        description: "Player weight in kilograms, when supplied."
+        description: "Player's weight in kilograms."
       - name: height
-        description: "Player height in centimeters, when supplied."
+        description: "Player's height in centimeters."
       - name: year_turned_pro
-        description: "Year in which the player turned professional, when supplied."
+        description: "Year the player turned professional."
       - name: birthplace
-        description: "Player birthplace as supplied by the source."
+        description: "City and country where the player was born."
       - name: coaches
-        description: "Player coaches as supplied by the source."
+        description: "Name or names of the player's coaches, with surrounding whitespace removed and blank values normalised to null."
       - name: player_hand
-        description: "{{ doc('player_hand')}}"
+        description: "{{ doc('player_hand') }}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["R", "L", "A", "U"]
       - name: player_backhand
-        description: "Player backhand style, when supplied."
+        description: "{{ doc('player_backhand')}}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["1H", "2H", "Unknown"]
       - name: country_code
-        description: "IOC country code for the player, when supplied."
+        description: "Three-letter IOC code for the country the player represents, with surrounding white space removed and blank values normalised to null"
+        data_tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+               expression: "is null or length(country_code)= 3"

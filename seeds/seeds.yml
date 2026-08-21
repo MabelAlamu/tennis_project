@@ -1,30 +1,32 @@
 version: 2
 
 seeds:
-  - name: player_id_corrections
+  - name: atp_player_id_corrections
     description: >
       Row-level corrections for player_ids incorrectly shared between two different real players in atp_matches (e.g. one id mostly belonging
       to one player, with a stray row mislabeled under a different player's name). Scoped by (bad_player_id, player_name) so only the
       mislabeled rows are corrected, not every row under the shared id.
     columns:
       - name: bad_player_id
-        description: The incorrect player_id found in atp_matches for this row.
+        description: Player identifier incorrectly assigned to the named player in teh raw ATP macth data
       - name: player_name
         description: The name recorded alongside the incorrect id, used to scope the fix to only the affected row(s).
       - name: correct_player_id
-        description: The player_id this row should actually have.
+        description: Canonical ATP plaer identifier for the named player.
 
-  - name: player_id_merge_map
+
+  - name: atp_player_id_merge_map
     description: >
       Maps a player_id with no corresponding players_bio row to the correct player_id for the same real person, where the
       same player was found recorded under two different ids.
     columns:
       - name: old_player_id
-        description: The duplicate/incorrect player_id to be replaced.
+        description: Alternate ATP player identifier for a person represented by another canoncial identifier. 
       - name: right_player_id
-        description: The player_id to use instead, chosen based on players_bio presence and/or match volume.
+        description: Canonical ATP player identifier for teh same person in match and player bio data. 
 
-  - name: match_stat_corrections
+
+  - name: atp_match_stat_corrections
     description: >
       Flags specific matches where serve stat columns (1stIn, 1stWon, svpt, etc.) were internally inconsistent (e.g. first serves won
       exceeding first serves in). Correct values couldn't be confidently determined, so the full serve-stat block is nulled in staging for
@@ -35,6 +37,22 @@ seeds:
       - name: tourney_match_num
         description: Match number within the tournament, used with tourney_id to identify the specific match.
       - name: winner_id_fixed
-        description: Corrected winner player_id. Resolves known data quality issues in the raw winner_id column. Falls back to the original winner_id when no correction or merge applies. 
+        description: Canonical ATP player identifier for the winner of the affected match.
+      - name: reason
+        description: Explanation of what was inconsistent and why the row was flagged.
+
+
+  - name: wta_match_stat_corrections
+    description: >
+      Flags specific matches where serve stat columns (1stIn, 1stWon, svpt, etc.) were internally inconsistent (e.g. first serves won
+      exceeding first serves in). Correct values couldn't be confidently determined, so the full serve-stat block is nulled in staging for
+      these matches rather than guessed at.
+    columns:
+      - name: tourney_id
+        description: Tournament identifier for the affected match.
+      - name: tourney_match_num
+        description: Match number within the tournament, used with tourney_id to identify the specific match.
+      - name: winner_id
+        description: Player identifier for the winner of the affected match.
       - name: reason
         description: Explanation of what was inconsistent and why the row was flagged.

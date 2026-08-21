@@ -1,0 +1,3 @@
+tourney_id,tourney_match_num,winner_id,reason
+2025-1050,1,210722,"Winner (Elise Mertens) fails first_serve_in test and total_service_points is implausibly low (1); loser (Nuria Parrizas Diaz) fails first_serve_won test; both sides internally inconsistent, nulled pending correction"
+2023-W-FC-2023-FLS,4,213631,"Winner (Marie Bouzkova) fails first_serve_won test; loser (Viktorija Golubic) fails first_serve_in test; both sides internally inconsistent, nulled pending correction"
