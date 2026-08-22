@@ -341,3 +341,49 @@ models:
           - accepted_values:
              arguments: 
               values: ['ALT', 'PR', 'ITF', 'WC', 'Q', 'LL', 'SE', 'UP', 'NG']
+
+
+  - name: int_players
+    description: One row per player appearing in recorded ATP or WTA matches from January 1, 2000 onward, with available identity and biographical attributes.
+    columns:
+      - name: player_id
+        description: Canonical identifier for the player across match and biographical records.
+        data_tests:
+          - not_null
+          - unique
+      - name: player_name
+        description: Full name under which the player appears in match records.
+        data_tests:
+          - not_null
+      - name: gender
+        description: Player gender category associated with the professional tour, where F represents WTA and M represents ATP.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['F', 'M']
+      - name: hand
+        description: Dominant playing hand of the player, when available.
+      - name: height
+        description: Height of the player in centimeters, when available.
+      - name: weight
+        description: Weight of the player in kilograms, when available.
+      - name: birthdate
+        description: Date the player was born, when available.
+      - name: birthplace
+        description: City and country where the player was born, when available.
+      - name: year_turned_pro
+        description: Year the player turned professional, when available.
+      - name: country_code
+        description: Three-letter IOC code for the country the player represents, when available.
+        data_tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "is null or length(country_code) = 3"
+      - name: bio_source
+        description: Availability of a matching player biography, classified as players_bio or matches_only.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['players_bio', 'matches_only']
