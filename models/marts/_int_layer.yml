@@ -116,6 +116,8 @@ models:
              arguments: 
               values: ['ATP','WTA']
 
+
+
   - name: int_matches_filtered
     description: One row per recorded ATP or WTA match from January 1, 2000 onward, the supported analysis period.
     columns:
@@ -234,3 +236,108 @@ models:
         description: "{{ doc('l_bpfaced') }}"
       - name: tour
         description: "{{ doc('tour') }}"
+      - name: match_status
+        description: >
+          Match completion status derived from the recorded score: 
+          Retired when the score contains RET, 
+          Default when it contains DEF,
+          Walkover when it contains W/O and Completed otherwise.
+        
+  
+
+
+  - name: int_matches_unpivoted
+    description: One row per player per recorded ATP or WTA match from January 1, 2000 onward, including tournament context, match result, ranking, and serve statistics.
+    columns:
+      - name: player_match_id
+        description: Unique identifier for a player's participation in a recorded match.
+        data_tests:
+          - not_null
+          - unique
+      - name: match_id
+        description: "{{ doc('match_id') }}"
+      - name: tour
+        description: "{{ doc('tour') }}"
+        data_tests:
+         - accepted_values:
+            arguments: 
+             values: ['WTA','ATP']
+      - name: tourney_id
+        description: "{{ doc('tourney_id') }}"
+      - name: tourney_name
+        description: "{{ doc('tourney_name') }}"
+      - name: surface
+        description: "{{ doc('surface') }}"
+      - name: draw_size
+        description: "{{ doc('draw_size') }}"
+      - name: tourney_level
+        description: "{{ doc('tourney_level') }}"
+      - name: indoor
+        description: "{{ doc('indoor') }}"
+      - name: tourney_date
+        description: Date the tournament began.
+      - name: tourney_match_num
+        description: "{{ doc('tourney_match_num') }}"
+      - name: player_id
+        description: Canonical identifier representing the player consistently across match records.
+        data_tests:
+          - not_null
+      - name: player_name
+        description: Name of the player.
+      - name: result
+        description: Whether the player won or lost the match.
+        data_tests:
+          - not_null
+          - accepted_values:
+             arguments:
+              values: ['Win', 'Loss']
+      - name: player_seed
+        description: Tournament seed assigned to the player, when seeded.
+      - name: player_entry
+        description: Entry category through which the player joined the tournament draw.
+      - name: player_hand
+        description: Dominant playing hand of the player.
+      - name: player_ht
+        description: Height of the player in centimeters, when available.
+      - name: player_country_code
+        description: IOC country code representing the player.
+      - name: player_age
+        description: Age of the player at the time of the match.
+      - name: player_rank
+        description: ATP or WTA ranking of the player at the time of the match.
+      - name: player_rank_points
+        description: ATP or WTA ranking points held by the player at the time of the match.
+      - name: ace
+        description: Aces served by the player during the match.
+      - name: double_fault
+        description: Double faults served by the player during the match.
+      - name: total_service_points
+        description: Total service points played by the player during the match.
+      - name: first_serve_in
+        description: First serves made by the player during the match.
+      - name: first_serve_won
+        description: First-serve points won by the player during the match.
+      - name: second_serve_won
+        description: Second-serve points won by the player during the match.
+      - name: service_games
+        description: Service games played by the player during the match.
+      - name: bp_saved
+        description: Break points saved by the player during the match.
+      - name: bp_faced
+        description: Break points faced by the player during the match.
+      - name: score
+        description: "{{ doc('score') }}"
+      - name: best_of
+        description: "{{ doc('best_of') }}"
+      - name: round
+        description: "{{ doc('round') }}"
+      - name: match_duration
+        description: "{{ doc('match_duration') }}"
+      - name: player_entry_category
+        description: >
+         Normalised tournament entry category for the player, grouping equivalent source codes while preserving distinct entry types; 
+         null when no entry category was recorded.
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['ALT', 'PR', 'ITF', 'WC', 'Q', 'LL', 'SE', 'UP', 'NG']

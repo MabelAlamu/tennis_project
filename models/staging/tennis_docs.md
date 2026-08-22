@@ -44,6 +44,18 @@ One of the following values:
 
 {% enddocs %}
 
+## Entry code consolidation (player_entry_category)
+Applied in int_matches_unpivoted, alongside the raw player_entry column
+(kept unmodified for reference).
+
+| Original Codes | Consolidated Label | Logic for Merging |
+|---|---|---|
+| ALT, A | ALT (Alternate) | A is a single-letter shorthand for ALT — same entry pool. |
+| PR, SR | PR (Protected Ranking) | PR (ATP) and SR (WTA) are the identical mechanism for injured players, standardised to PR. |
+| ITF, IP | ITF (ITF Place) | IP is the obsolete pre-Tokyo-2020 Olympic code, standardised to ITF. |
+| WC, Q, LL, SE, UP, NG | Kept separate | Each represents a distinct, unique qualification mechanism. |
+
+
 {% docs atp_tourney_level%}
 Classification for the tournament level.
 
@@ -82,6 +94,15 @@ One of the following values:
 | **D** | **Billie Jean King Cup** | Women's international team competition representing national teams (formerly Fed Cup / Federation Cup). |
 | **O** | **Olympic Games** | The Olympic Tennis Event held every four years. |
 {% enddocs %}
+
+## Match_status
+Applied in int_matches_filtered, created based on score column
+| Abbreviation | Full Term | Description |
+| :--- | :--- | :--- |
+| **def** | **Default** | The player was disqualified mid-match due to code of conduct violations. |
+| **ret** | **Retired** | The player stopped playing mid-match, usually due to injury or illness. |
+| **w/o** | **Walkover** | A player withdrew *before* the match started, advancing their opponent automatically. |
+
 
 
 {# Intermediate match model column descriptions #}
