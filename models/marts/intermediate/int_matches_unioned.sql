@@ -11,7 +11,7 @@ with combined as (
         'WTA' as tour
     from {{ ref('stg_wta') }} as wta
 )
-select
-    {{ dbt_utils.generate_surrogate_key(['tour', 'tourney_id', 'tourney_date', 'tourney_name']) }} as new_tourney_id,
+select 
+    {{ dbt_utils.generate_surrogate_key(['tour', 'tourney_id']) }} as new_tourney_id,
     c.* 
 from combined as c
