@@ -2,9 +2,6 @@ models:
   - name: int_matches_unioned
     description: One row per recorded ATP or WTA match, including tournament, player, result, ranking, and serve statistics.
     columns:
-      - name: new_tourney_id
-        description: Canonical identifier for a tournament edition across ATP and WTA match records.
-
       - name: match_id
         description: "{{ doc('match_id') }}"
       - name: tourney_id
@@ -124,8 +121,6 @@ models:
   - name: int_matches_filtered
     description: One row per recorded ATP or WTA match from January 1, 2000 onward, the supported analysis period.
     columns:
-      - name: new_tourney_id
-        description: Canonical identifier for a tournament edition across ATP and WTA match records.
       - name: match_id
         description: "{{ doc('match_id') }}"
         data_tests:
@@ -135,8 +130,6 @@ models:
         description: "{{ doc('tourney_id') }}"
       - name: tourney_name
         description: "{{ doc('tourney_name') }}"
-      - name: standardised_tourney_name
-        description: Canonical tournament name used to group known naming variants across match records.
       - name: surface
         description: "{{ doc('surface') }}"
       - name: draw_size
@@ -244,7 +237,11 @@ models:
       - name: tour
         description: "{{ doc('tour') }}"
       - name: match_status
-        description: "Recorded outcome status of the match: Completed, Retired, Default, or Walkover."
+        description: >
+          Match completion status derived from the recorded score: 
+          Retired when the score contains RET, 
+          Default when it contains DEF,
+          Walkover when it contains W/O and Completed otherwise.
         
   
 
@@ -266,11 +263,9 @@ models:
             arguments: 
              values: ['WTA','ATP']
       - name: tourney_id
-        description: Canonical identifier for the tournament edition across ATP and WTA match records.
-        data_tests:
-          - not_null
+        description: "{{ doc('tourney_id') }}"
       - name: tourney_name
-        description: Standardized name of the tournament in which the match was played.
+        description: "{{ doc('tourney_name') }}"
       - name: surface
         description: "{{ doc('surface') }}"
       - name: draw_size
@@ -338,10 +333,10 @@ models:
         description: "{{ doc('round') }}"
       - name: match_duration
         description: "{{ doc('match_duration') }}"
-      - name: match_status
-        description: "Recorded outcome status of the match: Completed, Retired, Default, or Walkover."
       - name: player_entry_category
-        description: Tournament entry category under which the player participated, such as qualifier, wild card, or lucky loser.
+        description: >
+         Normalised tournament entry category for the player, grouping equivalent source codes while preserving distinct entry types; 
+         null when no entry category was recorded.
         data_tests:
           - accepted_values:
              arguments: 
@@ -386,7 +381,7 @@ models:
               arguments:
                 expression: "is null or length(country_code) = 3"
       - name: bio_source
-        description: Whether the player has a matching biography record (`players_bio`) or appears only in match data (`matches_only`).
+        description: Availability of a matching player biography, classified as players_bio or matches_only.
         data_tests:
           - not_null
           - accepted_values:
