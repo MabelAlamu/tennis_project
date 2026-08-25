@@ -1,0 +1,3 @@
+tourney_name,tourney_year,bad_tourney_level,correct_tourney_level,reason
+Seoul Olympics,1988,A,O,"Single unified Olympic event; confirmed via research it was one event, not two. A subset of rows were miscoded as regular tour level instead of Olympic level"
+United Cup,2024,250,A,"Single team event; majority-vote correction (75 rows coded A vs 16 coded 250), coded as regular tour level rather than a genuine second competition"
