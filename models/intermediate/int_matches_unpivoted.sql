@@ -3,8 +3,8 @@ with unpivoted as (
     select
         match_id,
         tour,
-        new_tourney_id as tourney_id,
-        standardised_tourney_name as tourney_name,
+        tourney_id,
+        tourney_name,
         surface,
         draw_size,
         tourney_level,
@@ -43,8 +43,8 @@ with unpivoted as (
     select
         match_id,
         tour,
-        new_tourney_id as tourney_id,
-        standardised_tourney_name as tourney_name,
+        tourney_id,
+        tourney_name,
         surface,
         draw_size,
         tourney_level,
