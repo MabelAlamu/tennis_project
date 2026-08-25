@@ -4,8 +4,10 @@ models:
     columns:
       - name: match_id
         description: "{{ doc('match_id') }}"
+      - name: tounrey_id_raw
+        description: Source identifier for the tournament edition containing the match.
       - name: tourney_id
-        description: "{{ doc('tourney_id') }}"
+        description: Identifier for the tournament edition, consistent across ATP and WTA match records.
       - name: tourney_name
         description: "{{ doc('tourney_name') }}"
       - name: surface
@@ -113,10 +115,8 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-             arguments: 
-              values: ['ATP','WTA']
-
-
+              arguments:
+                values: ["ATP", "WTA"]
 
   - name: int_matches_filtered
     description: One row per recorded ATP or WTA match from January 1, 2000 onward, the supported analysis period.
@@ -126,8 +126,10 @@ models:
         data_tests:
           - not_null
           - unique
+      - name: tourney_id_raw
+        description: Source identifier for the tournament edition containing the match.
       - name: tourney_id
-        description: "{{ doc('tourney_id') }}"
+        description: Identifier for the tournament edition, consistent across ATP and WTA match records.
       - name: tourney_name
         description: "{{ doc('tourney_name') }}"
       - name: surface
@@ -192,8 +194,8 @@ models:
         description: "{{ doc('best_of') }}"
         data_tests:
           - accepted_values:
-             arguments: 
-              values: [3,5]
+              arguments:
+                values: [3, 5]
       - name: round
         description: "{{ doc('round') }}"
       - name: match_duration
@@ -237,14 +239,7 @@ models:
       - name: tour
         description: "{{ doc('tour') }}"
       - name: match_status
-        description: >
-          Match completion status derived from the recorded score: 
-          Retired when the score contains RET, 
-          Default when it contains DEF,
-          Walkover when it contains W/O and Completed otherwise.
-        
-  
-
+        description: Recorded outcome status of the match, including completed, retired, defaulted, and walkover matches.
 
   - name: int_matches_unpivoted
     description: One row per player per recorded ATP or WTA match from January 1, 2000 onward, including tournament context, match result, ranking, and serve statistics.
@@ -259,9 +254,9 @@ models:
       - name: tour
         description: "{{ doc('tour') }}"
         data_tests:
-         - accepted_values:
-            arguments: 
-             values: ['WTA','ATP']
+          - accepted_values:
+              arguments:
+                values: ["WTA", "ATP"]
       - name: tourney_id
         description: "{{ doc('tourney_id') }}"
       - name: tourney_name
@@ -289,8 +284,8 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-             arguments:
-              values: ['Win', 'Loss']
+              arguments:
+                values: ["Win", "Loss"]
       - name: player_seed
         description: Tournament seed assigned to the player, when seeded.
       - name: player_entry
@@ -334,14 +329,13 @@ models:
       - name: match_duration
         description: "{{ doc('match_duration') }}"
       - name: player_entry_category
-        description: >
-         Normalised tournament entry category for the player, grouping equivalent source codes while preserving distinct entry types; 
-         null when no entry category was recorded.
+        description: Tournament-draw entry category for the player, such as wildcard, qualifier, lucky loser, or protected ranking.
         data_tests:
           - accepted_values:
-             arguments: 
-              values: ['ALT', 'PR', 'ITF', 'WC', 'Q', 'LL', 'SE', 'UP', 'NG']
-
+              arguments:
+                values: ["ALT", "PR", "ITF", "WC", "Q", "LL", "SE", "UP", "NG"]
+      - name: match_status
+        description: Recorded outcome status of the match, including completed, retired, defaulted, and walkover matches.
 
   - name: int_players
     description: One row per player appearing in recorded ATP or WTA matches from January 1, 2000 onward, with available identity and biographical attributes.
@@ -361,7 +355,7 @@ models:
           - not_null
           - accepted_values:
               arguments:
-                values: ['F', 'M']
+                values: ["F", "M"]
       - name: hand
         description: Dominant playing hand of the player, when available.
       - name: height
@@ -381,9 +375,9 @@ models:
               arguments:
                 expression: "is null or length(country_code) = 3"
       - name: bio_source
-        description: Availability of a matching player biography, classified as players_bio or matches_only.
+        description: Whether the player's profile attributes are matched to a biography record or are available only from match history.
         data_tests:
           - not_null
           - accepted_values:
               arguments:
-                values: ['players_bio', 'matches_only']
+                values: ["players_bio", "matches_only"]
