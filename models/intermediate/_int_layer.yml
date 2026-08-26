@@ -4,10 +4,14 @@ models:
     columns:
       - name: match_id
         description: "{{ doc('match_id') }}"
-      - name: tounrey_id_raw
+        data_tests:
+          - not_null
+      - name: tourney_id_raw
         description: Source identifier for the tournament edition containing the match.
       - name: tourney_id
         description: Identifier for the tournament edition, consistent across ATP and WTA match records.
+        data_tests:
+          - not_null
       - name: tourney_name
         description: "{{ doc('tourney_name') }}"
       - name: surface
@@ -117,6 +121,12 @@ models:
           - accepted_values:
               arguments:
                 values: ["ATP", "WTA"]
+      - name: tourney_year
+        description: Calendar year in which the tournament began.
+      - name: match_status
+        description: Recorded outcome status of the match, including completed, retired, defaulted, and walkover matches.
+      - name: tourney_start_date
+        description: Start date of the tournament edition.
 
   - name: int_matches_filtered
     description: One row per recorded ATP or WTA match from January 1, 2000 onward, the supported analysis period.
@@ -238,8 +248,12 @@ models:
         description: "{{ doc('l_bpfaced') }}"
       - name: tour
         description: "{{ doc('tour') }}"
+      - name: tourney_year
+        description: Calendar year in which the tournament began.
       - name: match_status
         description: Recorded outcome status of the match, including completed, retired, defaulted, and walkover matches.
+      - name: tourney_start_date
+        description: Start date of the tournament edition.
 
   - name: int_matches_unpivoted
     description: One row per player per recorded ATP or WTA match from January 1, 2000 onward, including tournament context, match result, ranking, and serve statistics.
@@ -278,7 +292,7 @@ models:
         data_tests:
           - not_null
       - name: player_name
-        description: Name of the player.
+        description: Name of the player participating in the match.
       - name: result
         description: Whether the player won or lost the match.
         data_tests:
