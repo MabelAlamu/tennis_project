@@ -10,7 +10,7 @@ seeds:
       - name: bad_player_id
         description: Player identifier incorrectly assigned to the named player in teh raw ATP macth data
       - name: player_name
-        description: The name recorded alongside the incorrect id, used to scope the fix to only the affected row(s).
+        description: Player name associated with the incorrect ATP player identifier.
       - name: correct_player_id
         description: Canonical ATP plaer identifier for the named player.
 
@@ -56,3 +56,40 @@ seeds:
         description: Player identifier for the winner of the affected match.
       - name: reason
         description: Explanation of what was inconsistent and why the row was flagged.
+
+
+  - name: draw_size_corrections
+    description: Approved corrections to tournament draw sizes for events with inaccurate source records.
+    columns:
+      - name: tour
+        description: Professional tennis tour associated with the tournament event.
+      - name: tourney_id_raw
+        description: Source tournament identifier for the event requiring a draw-size correction.
+      - name: corrected_draw_size
+        description: Confirmed number of player slots in the tournament draw.
+      - name: reason
+        description: Evidence supporting the corrected tournament draw size.
+
+
+  - name: tourney_level_corrections
+    description: Approved corrections to tournament competition levels for event years with inaccurate source records.
+    columns:
+      - name: tourney_name
+        description: Tournament name for the event requiring a competition-level correction.
+      - name: tourney_year
+        description: Calendar year in which the tournament was held.
+      - name: bad_tourney_level
+        description: Competition level recorded incorrectly in the source data.
+      - name: correct_tourney_level
+        description: Confirmed competition level for the tournament event.
+      - name: reason
+        description: Evidence supporting the corrected competition level.
+
+
+  - name: tourney_name_mapping
+    description: Maps source tournament-name variants to a consistent tournament name for reporting and analysis.
+    columns:
+      - name: source_tourney_name
+        description: Tournament name as recorded in the source data.
+      - name: standard_tourney_name
+        description: Standard tournament name used for consistent reporting and analysis.

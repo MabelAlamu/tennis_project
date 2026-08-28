@@ -104,5 +104,3 @@ qualify row_number() over (
     partition by tourney_id, tourney_date, winner_id_fixed, loser_id_fixed, round, score
     order by tourney_match_num
 ) = 1
-
---select distinct winner_seed from renamed union all select distinct loser_seed from renamed

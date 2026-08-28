@@ -6,8 +6,6 @@ models:
         description: "{{ doc('match_id') }}"
         data_tests:
           - not_null
-      - name: tourney_id_raw
-        description: Source identifier for the tournament edition containing the match.
       - name: tourney_id
         description: Identifier for the tournament edition, consistent across ATP and WTA match records.
         data_tests:
@@ -125,8 +123,6 @@ models:
         description: Calendar year in which the tournament began.
       - name: match_status
         description: Recorded outcome status of the match, including completed, retired, defaulted, and walkover matches.
-      - name: tourney_start_date
-        description: Start date of the tournament edition.
 
   - name: int_matches_filtered
     description: One row per recorded ATP or WTA match from January 1, 2000 onward, the supported analysis period.
@@ -140,6 +136,8 @@ models:
         description: Source identifier for the tournament edition containing the match.
       - name: tourney_id
         description: Identifier for the tournament edition, consistent across ATP and WTA match records.
+        data_tests:
+          - not_null
       - name: tourney_name
         description: "{{ doc('tourney_name') }}"
       - name: surface
@@ -273,6 +271,12 @@ models:
                 values: ["WTA", "ATP"]
       - name: tourney_id
         description: "{{ doc('tourney_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_tourney')
+                field: tourney_id
+
       - name: tourney_name
         description: "{{ doc('tourney_name') }}"
       - name: surface
@@ -283,14 +287,19 @@ models:
         description: "{{ doc('tourney_level') }}"
       - name: indoor
         description: "{{ doc('indoor') }}"
-      - name: tourney_date
-        description: Date the tournament began.
+      - name: tourney_start_date
+        description: Start date of the tournament edition.
       - name: tourney_match_num
         description: "{{ doc('tourney_match_num') }}"
       - name: player_id
         description: Canonical identifier representing the player consistently across match records.
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_player')
+                field: player_id
+
       - name: player_name
         description: Name of the player participating in the match.
       - name: result
@@ -350,48 +359,3 @@ models:
                 values: ["ALT", "PR", "ITF", "WC", "Q", "LL", "SE", "UP", "NG"]
       - name: match_status
         description: Recorded outcome status of the match, including completed, retired, defaulted, and walkover matches.
-
-  - name: int_players
-    description: One row per player appearing in recorded ATP or WTA matches from January 1, 2000 onward, with available identity and biographical attributes.
-    columns:
-      - name: player_id
-        description: Canonical identifier for the player across match and biographical records.
-        data_tests:
-          - not_null
-          - unique
-      - name: player_name
-        description: Full name under which the player appears in match records.
-        data_tests:
-          - not_null
-      - name: gender
-        description: Player gender category associated with the professional tour, where F represents WTA and M represents ATP.
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ["F", "M"]
-      - name: hand
-        description: Dominant playing hand of the player, when available.
-      - name: height
-        description: Height of the player in centimeters, when available.
-      - name: weight
-        description: Weight of the player in kilograms, when available.
-      - name: birthdate
-        description: Date the player was born, when available.
-      - name: birthplace
-        description: City and country where the player was born, when available.
-      - name: year_turned_pro
-        description: Year the player turned professional, when available.
-      - name: country_code
-        description: Three-letter IOC code for the country the player represents, when available.
-        data_tests:
-          - dbt_utils.expression_is_true:
-              arguments:
-                expression: "is null or length(country_code) = 3"
-      - name: bio_source
-        description: Whether the player's profile attributes are matched to a biography record or are available only from match history.
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: ["players_bio", "matches_only"]
