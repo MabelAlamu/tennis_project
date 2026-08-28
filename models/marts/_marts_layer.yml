@@ -1,0 +1,74 @@
+models:
+  - name: dim_player
+    description: One row per player appearing in recorded ATP or WTA matches from January 1, 2000 onward, with available identity and biographical attributes.
+    columns:
+      - name: player_id
+        description: Canonical identifier for the player across match and biographical records.
+        data_tests:
+          - not_null
+          - unique
+      - name: player_name
+        description: Full name under which the player appears in match records.
+        data_tests:
+          - not_null
+      - name: gender
+        description: Player gender category associated with the professional tour, where F represents WTA and M represents ATP.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["F", "M"]
+      - name: hand
+        description: Dominant playing hand of the player, when available.
+      - name: height
+        description: Height of the player in centimeters, when available.
+      - name: weight
+        description: Weight of the player in kilograms, when available.
+      - name: birthdate
+        description: Date the player was born, when available.
+      - name: birthplace
+        description: City and country where the player was born, when available.
+      - name: year_turned_pro
+        description: Year the player turned professional, when available.
+      - name: country_code
+        description: Three-letter IOC code for the country the player represents, when available.
+        data_tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "is null or length(country_code) = 3"
+      - name: bio_source
+        description: Whether the player's profile attributes are matched to a biography record or are available only from match history.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["players_bio", "matches_only"]
+  
+
+  - name: dim_tourney
+    description: One row per distinct observed combination of ATP or WTA tournament identifier, date, tour, venue conditions, draw details, and champion where a completed final is available. Source tournament identifiers can recur across multiple recorded attribute combinations.
+    columns:
+      - name: tourney_id
+        description: Reusable source identifier for the tournament. It is required but not a primary key because one identifier can appear across multiple recorded dates or attribute combinations.
+        data_tests:
+          - not_null
+          - unique
+      - name: tourney_name
+        description: Name of the tournament.
+        data_tests:
+          - not_null
+      - name: tour
+        description: Professional tennis tour on which the tournament was played.
+      - name: surface
+        description: Court surface used for the tournament.
+      - name: draw_size
+        description: Number of player positions in the tournament draw.
+      - name: tourney_level
+        description: Competition tier of the tournament within its professional tour.
+      - name: indoor
+        description: Whether the tournament was played indoors.
+      - name: tourney_start_date
+        description: Start date of the tournament edition.
+
+      - name: tourney_winner
+        description: Name of the player who won the tournament.

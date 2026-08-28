@@ -9,7 +9,8 @@ with unpivoted as (
         draw_size,
         tourney_level,
         indoor,
-        tourney_date,
+        tourney_start_date,
+        tourney_year,
         tourney_match_num,
         winner_id_fixed as player_id,
         winner_name as player_name,
@@ -49,7 +50,8 @@ with unpivoted as (
         draw_size,
         tourney_level,
         indoor,
-        tourney_date,
+        tourney_start_date,
+        tourney_year,
         tourney_match_num,
         loser_id_fixed as player_id,
         loser_name as player_name,
@@ -94,3 +96,9 @@ final as (
 )
 
 select * from final
+
+/*select tourney_id, tourney_name, count(distinct player_name) as n_winners
+from final
+where round = 'F' and result = 'Win'
+group by 1, 2
+having count(distinct player_name) > 1*/
