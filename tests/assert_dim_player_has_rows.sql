@@ -10,4 +10,4 @@ with player_count as (
 
 select *
 from player_count
-where row_count > 0
+where row_count = 0
