@@ -93,3 +93,73 @@ seeds:
         description: Tournament name as recorded in the source data.
       - name: standard_tourney_name
         description: Standard tournament name used for consistent reporting and analysis.
+
+
+  - name: reviewed_player_identity_pairs
+    description: >
+      Reviewed player ID and name combinations that legitimately participate
+      in identity collisions found in the source match data.
+    columns:
+      - name: player_id
+        description: "ATP player identifier for the reviewed identity record."
+        data_tests:
+          - not_null
+      - name: player_name
+        description: "Player name reviewed in combination with the player identifier."
+        data_tests:
+          - not_null
+      - name: review_type
+        description: "Category of the reviewed identity relationship, such as a shared name or spelling variant."
+      - name: reason
+        description: "Evidence supporting the identity review outcome."
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - player_id
+              - player_name
+
+
+  - name: atp_player_name_corrections
+    description: >
+      Reviewed corrections for isolated player-name errors in ATP match data.
+      Corrections are applied using the tournament, match number, player side,
+      player ID and original name.
+    columns:
+      - name: tourney_id
+        description: "Tournament identifier for the match with a player-name correction."
+        data_tests:
+          - not_null
+      - name: tourney_match_num
+        description: "Match number within the tournament for the corrected record."
+        data_tests:
+          - not_null
+      - name: player_side
+        description: "Match participant whose name is corrected: winner or loser."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['winner', 'loser']
+      - name: player_id
+        description: "ATP player identifier for the participant with the corrected name."
+        data_tests:
+          - not_null
+      - name: bad_player_name
+        description: "Player name recorded incorrectly in the source match data."
+        data_tests:
+          - not_null
+      - name: correct_player_name
+        description: "Approved player name for the match record."
+        data_tests:
+          - not_null
+      - name: reason 
+        description: "Evidence supporting the player-name correction."
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - tourney_id
+              - tourney_match_num
+              - player_side
+              - player_id
