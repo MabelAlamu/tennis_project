@@ -5,23 +5,25 @@ models:
      - first_serve_won_valid:
         arguments: 
          player_id: id_fixed
-         player_name: name
+         player_name: name_fixed
      - first_serve_in_valid:
         arguments: 
          player_id: id_fixed
-         player_name: name
+         player_name: name_fixed
      - player_id_maps_to_one_name:
         arguments: 
          player_id: id_fixed
-         player_name: name
+         player_name: name_fixed
         config: 
          severity: warn
+         store_failures: true
      - player_name_maps_to_one_id:
         arguments: 
          player_id: id_fixed
-         player_name: name
+         player_name: name_fixed
         config: 
          severity: warn
+         store_failures: true
     columns:
       - name: match_id
         description: "Unique identifier for a recorded ATP match. Uniqueness tested only from 1996 onward. Earlier Davis Cup round-robin data has known unresolved key collisions and is excluded from analysis in the intermediate layer."
@@ -45,7 +47,7 @@ models:
       - name: tourney_level
         description: "{{ doc('atp_tourney_level') }}"
       - name: indoor
-        description: "Tournament setting: I for idoor or O for outdoor"
+        description: "Tournament setting: I for indoor or O for outdoor"
         data_tests:
           - accepted_values:
              arguments: 
@@ -57,7 +59,7 @@ models:
       - name: winner_id
         description: "Source identifier for the winning player."
       - name: winner_id_fixed
-        description: "Canonoical identifier for the winning player, used to represent the same play consistently across records." 
+        description: "Canonical identifier for the winning player, used to represent the same player consistently across match records." 
       - name: winner_seed
         description: "Tournament seed assigned to the winning player, when seeded."
       - name: winner_entry
@@ -68,6 +70,10 @@ models:
              values: ['WC', 'Q', 'LL', 'PR', 'SR', 'ALT', 'A', 'SE', 'ITF', 'IP', 'UP', 'NG']
       - name: winner_name
         description: "Name of the winning player as recorded in the source."
+        data_tests:
+          - not_null
+      - name: winner_name_fixed
+        description: 	Standardized name of the winning player, used to identify the same player consistently across match records.
         data_tests:
           - not_null
       - name: winner_hand
@@ -89,7 +95,7 @@ models:
       - name: loser_id
         description: "Source identifier for the losing player."
       - name: loser_id_fixed
-        description: "Canonoical identifier for the losing player, used to represent the same play consistently across records." 
+        description: "Canonical identifier for the losing player, used to represent the same player consistently across match records." 
       - name: loser_seed
         description: "Tournament seed assigned to the losing player, when seeded."
       - name: loser_entry
@@ -100,6 +106,10 @@ models:
               values: ['WC', 'Q', 'LL', 'PR', 'SR', 'ALT', 'A', 'SE', 'ITF', 'IP', 'UP', 'NG']
       - name: loser_name
         description: "Name of the losing player as recorded in the source."
+        data_tests:
+          - not_null
+      - name: loser_name_fixed
+        description: Standardized name of the losing player, used to identify the same player consistently across match records.
         data_tests:
           - not_null
       - name: loser_hand

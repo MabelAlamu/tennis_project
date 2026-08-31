@@ -16,12 +16,14 @@ models:
          player_name: name
          config: 
           severity: warn
+          store_failures: true
      - player_name_maps_to_one_id:
         arguments: 
          player_id: id
          player_name: name
          config: 
           severity: warn
+          store_failures: true
     columns:
       - name: match_id
         description: "Unique identifier for a recorded WTA match."

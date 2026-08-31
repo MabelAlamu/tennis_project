@@ -1,0 +1,56 @@
+player_id,player_name,review_type,reason
+T873,Paul Thompson,shared_name,Reviewed as a distinct New Zealand player
+T0ET,Paul Thompson,shared_name,Reviewed as a distinct United States player
+S343,Peter Smith,shared_name,Reviewed as a distinct United States player
+S0PS,Peter Smith,shared_name,Reviewed as a distinct Australian player
+N0FT,Alex Santino Nuñez Vera,spelling_variant,Reviewed name variation for the same player
+N0FT,Alex Santino Nunez Vera,spelling_variant,Reviewed name variation for the same player
+SS51,H. Stewart,abbreviated_name,Reviewed abbreviated name for the same player
+SS51,Hugh Stewart,abbreviated_name,Reviewed full name for the same player
+D138,J. DeWitts,abbreviated_name,Reviewed abbreviated name for the same player
+D138,Jerry De Witts,abbreviated_name,Reviewed full name for the same player
+L183,Philippe Lacombe,historical_name_variant,Reviewed historical name variation for the same player
+L183,Philippe Lacombrade,historical_name_variant,Reviewed historical name variation for the same player
+V812,otic van de Zandschulp,source_typo,Reviewed source spelling variation for the same player
+V812,Botic Van De Zandschulp,casing_variant,Reviewed casing variation for the same player
+V812,Botic van de Zandschulp,casing_variant,Reviewed casing variation for the same player
+K147,Henry Kamakana,abbreviated_name,Reviewed full name for the same player
+K147,H. Kamakana,abbreviated_name,Reviewed abbreviated name for the same player
+V0DP,Daniel Vallejo,shortened_name,Reviewed shortened name for the same player
+V0DP,Adolfo Daniel Vallejo,shortened_name,Reviewed full name for the same player
+G077,Pancho Gonzales,shortened_name,Reviewed shortened name for the same player
+G077,Richard Pancho Gonzales,shortened_name,Reviewed full name for the same player
+Z0BL,Faris Zakaria,spelling_variant,Reviewed spelling variation for the same player
+Z0BL,Fares Zakaria,spelling_variant,Reviewed spelling variation for the same player
+M257,Jean-Claude Molinari,punctuation_variant,Reviewed punctuation variation for the same player
+M257,Jean Claude Molinari,punctuation_variant,Reviewed punctuation variation for the same player
+D133,Michael Davies,shortened_name,Reviewed full name for the same player
+D133,Mike Davies,shortened_name,Reviewed shortened name for the same player
+H215,Hadiman Hadiman,name_variant,Reviewed name variation for the same player
+H215,Josef Hadiman,name_variant,Reviewed name variation for the same player
+K613,D. Kierbow,abbreviated_name,Reviewed abbreviated name for the same player
+K613,Don Kierbow,abbreviated_name,Reviewed full name for the same player
+O042,Alex Olmedo,shortened_name,Reviewed shortened name for the same player
+O042,Alejandro Olmedo,shortened_name,Reviewed full name for the same player
+C184,Ian Crookenden,abbreviated_name,Reviewed full name for the same player
+C184,I. Crookenden,abbreviated_name,Reviewed abbreviated name for the same player
+S0H2,Aleksander Shevchenko,spelling_variant,Reviewed spelling variation for the same player
+S0H2,Alexander Shevchenko,spelling_variant,Reviewed spelling variation for the same player
+P0DF,Matheus Pucinelli De Almeida,casing_variant,Reviewed casing variation for the same player
+P0DF,Matheus Pucinelli de Almeida,casing_variant,Reviewed casing variation for the same player
+D0LJ,Diego Dedura,shortened_name,Reviewed shortened name for the same player
+D0LJ,Diego Dedura-Palomero,shortened_name,Reviewed full name for the same player
+V0DO,Martin Antonio Vergara del Puerto,casing_variant,Reviewed casing variation for the same player
+V0DO,Martin Antonio Vergara Del Puerto,casing_variant,Reviewed casing variation for the same player
+B228,Earl Buchholz,nickname_variant,Reviewed shortened name for the same player
+B228,Earl Butch Buchholz,nickname_variant,Reviewed full name for the same player
+P051,Konstantin Pugayev,transliteration_variant,Reviewed transliteration variation for the same player
+P051,Konstantin Pugaev,transliteration_variant,Reviewed transliteration variation for the same player
+B0C0,Adrian Boitan,shortened_name,Reviewed shortened name for the same player
+B0C0,Gabi Adrian Boitan,shortened_name,Reviewed full name for the same player
+216133,Xin Yu Wang,spacing_variant,Reviewed spacing variation for the same player
+216133,Xinyu Wang,spacing_variant,Reviewed spacing variation for the same player
+220520,McCartney Kessler,casing_variant,Reviewed casing variation for the same player
+220520,Mccartney Kessler,casing_variant,Reviewed casing variation for the same player
+210303,Kathinka von Deichmann,casing_variant,Reviewed casing variation for the same player
+210303,Kathinka Von Deichmann,casing_variant,Reviewed casing variation for the same player
