@@ -16,7 +16,7 @@ select
     count(distinct tourney_level) as n_tourney_level,
     count(distinct tourney_start_date) as n_tourney_start_date,
     count(distinct case when tourney_level != 'D' then draw_size end) as n_draw_size
-from {{ ref('int_matches_filtered') }}
+from {{ ref('int_matches_tourney_enriched') }}
 group by tourney_id
 having
     count(distinct tour) > 1

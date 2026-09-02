@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with unpivoted as (
 
     select
@@ -13,8 +15,8 @@ with unpivoted as (
         tourney_year,
         tourney_match_num,
         winner_id_fixed as player_id,
-        winner_name as player_name,
-        'Win' as result,
+        winner_name_fixed as player_name,
+        'win' as result,
         winner_seed as player_seed,
         winner_entry as player_entry,
         winner_hand as player_hand,
@@ -37,7 +39,7 @@ with unpivoted as (
         round,
         match_duration,
         match_status
-    from {{ ref('int_matches_filtered') }}
+    from {{ ref('int_matches_tourney_enriched') }}
 
     union all
 
@@ -54,8 +56,8 @@ with unpivoted as (
         tourney_year,
         tourney_match_num,
         loser_id_fixed as player_id,
-        loser_name as player_name,
-        'Loss' as result,
+        loser_name_fixed as player_name,
+        'loss' as result,
         loser_seed as player_seed,
         loser_entry as player_entry,
         loser_hand as player_hand,
@@ -78,7 +80,7 @@ with unpivoted as (
         round,
         match_duration,
         match_status
-    from {{ ref('int_matches_filtered') }}
+    from {{ ref('int_matches_tourney_enriched') }}
 
 ),
 final as (

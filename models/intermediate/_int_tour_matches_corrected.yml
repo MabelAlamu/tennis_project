@@ -1,0 +1,335 @@
+models:
+  - name: int_wta_matches_corrected
+    description: "WTA match results staged directly from the raw feed. One row represents a recorded match result; tournament and match-number combinations are not guaranteed to be unique in the source."
+    data_tests:
+     - first_serve_won_valid:
+        arguments: 
+         player_id: id
+         player_name: name
+     - first_serve_in_valid:
+        arguments: 
+         player_id: id
+         player_name: name
+     - player_id_maps_to_one_name:
+        arguments: 
+         player_id: id
+         player_name: name
+         config: 
+          severity: warn
+          store_failures: true
+     - player_name_maps_to_one_id:
+        arguments: 
+         player_id: id
+         player_name: name
+         config: 
+          severity: warn
+          store_failures: true
+    columns:
+      - name: tourney_id
+        description: "Source identifier for the tournament edition containing the match."
+        data_tests:
+          - not_null
+      - name: tourney_name
+        description: "Name of the tournament as supplied by the source."
+        data_tests:
+          - not_null
+      - name: surface
+        description: "Court surface recorded for the tournament."
+      - name: draw_size
+        description: "Number of player slots in the tournament draw"
+      - name: tourney_level
+        description: "{{ doc('wta_tourney_level') }}"
+      - name: indoor
+        description: "Tournament setting: I for indoor or O for outdoor"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['O','I']
+      - name: tourney_date
+        description: "Date the tournament began."
+      - name: tourney_match_num
+        description: "	Source match sequence number within the tournament."
+      - name: winner_id
+        description: "Source identifier for the winning player."
+      - name: winner_id_fixed
+        description: "Canonical identifier for the winning player."
+        data_tests:
+          - not_null
+      - name: winner_seed
+        description: "Tournament seed assigned to the winning player, when seeded."
+      - name: winner_entry
+        description: "{{doc('player_entry') }}"
+        data_tests:
+         - accepted_values:
+            arguments: 
+             values: ['WC', 'Q', 'LL', 'PR', 'SR', 'ALT', 'A', 'SE', 'ITF', 'IP', 'UP', 'NG']
+      - name: winner_name
+        description: "Name of the winning player as recorded in the source."
+      - name: winner_name_fixed
+        description: "Canonical name for the winning player."
+        data_tests:
+          - not_null
+      - name: winner_hand
+        description: "{{ doc('player_hand') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['R', 'L', 'A', 'U']
+      - name: winner_ht
+        description: "Height of the winning player in centimeters, when supplied."
+      - name: winner_country_code
+        description: "Country code as defined by the international olympic committee for the winning player, when supplied."
+      - name: winner_age
+        description: "Age of the winning player at the time of the match."
+      - name: winner_rank
+        description: "WTA ranking of the winning player at the time of the match."
+      - name: winner_rank_points
+        description: "WTA ranking points held by the winning player at the time of the match."
+      - name: loser_id
+        description: "Source identifier for the losing player."
+      - name: loser_id_fixed
+        description: "Canonical identifier for the losing player."
+        data_tests:
+          - not_null
+      - name: loser_seed
+        description: "Tournament seed assigned to the losing player, when seeded."
+      - name: loser_entry
+        description: "{{ doc('player_entry') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['WC', 'Q', 'LL', 'PR', 'SR', 'ALT', 'A', 'SE', 'ITF', 'IP', 'UP', 'NG']
+      - name: loser_name
+        description: "Name of the losing player as recorded in the source."
+      - name: loser_name_fixed
+        description: "Canonical name for the losing player."
+        data_tests:
+          - not_null
+      - name: loser_hand
+        description: "{{ doc('player_hand') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['R','L','A', 'U']
+      - name: loser_ht
+        description: "Height of the losing player in centimeters, when supplied."
+      - name: loser_country_code
+        description: "Country code as defined by the international olympic committee for the losing player, when supplied."
+      - name: loser_age
+        description: "Age of the losing player at the time of the match."
+      - name: loser_rank
+        description: "WTA ranking of the losing player at the time of the match."
+      - name: loser_rank_points
+        description: "WTA ranking points held by the losing player at the time of the match."
+      - name: score
+        description: "Final match score as supplied by the source."
+      - name: best_of
+        description: "Maximum number of sets scheduled for the match."
+      - name: round
+        description: "Tournament round in which the match was played."
+      - name: match_duration
+        description: "Match duration in minutes, when supplied."
+      - name: w_ace
+        description: "Aces served by the winning player."
+      - name: w_df
+        description: "Double faults served by the winning player."
+      - name: w_svpt
+        description: "Total service points played by the winning player."
+      - name: w_1stin
+        description: "First serves made by the winning player."
+      - name: w_1stwon
+        description: "First-serve points won by the winning player."
+      - name: w_2ndwon
+        description: "Second-serve points won by the winning player."
+      - name: w_svgms
+        description: "Service games played by the winning player."
+      - name: w_bpsaved
+        description: "Break points saved by the winning player."
+      - name: w_bpfaced
+        description: "Break points faced by the winning player."
+      - name: l_ace
+        description: "Aces served by the losing player."
+      - name: l_df
+        description: "Double faults served by the losing player."
+      - name: l_svpt
+        description: "Total service points played by the losing player."
+      - name: l_1stin
+        description: "First serves made by the losing player."
+      - name: l_1stwon
+        description: "First-serve points won by the losing player."
+      - name: l_2ndwon
+        description: "Second-serve points won by the losing player."
+      - name: l_svgms
+        description: "Service games played by the losing player."
+      - name: l_bpsaved
+        description: "Break points saved by the losing player."
+      - name: l_bpfaced
+        description: "Break points faced by the losing player."
+
+
+  - name: int_atp_matches_corrected
+    description: "ATP match results staged directly from the raw feed. One row represents a recorded match result; tournament and match-number combinations are not guaranteed to be unique in the source."
+    data_tests:
+     - first_serve_won_valid:
+        arguments: 
+         player_id: id_fixed
+         player_name: name_fixed
+     - first_serve_in_valid:
+        arguments: 
+         player_id: id_fixed
+         player_name: name_fixed
+     - player_id_maps_to_one_name:
+        arguments: 
+         player_id: id_fixed
+         player_name: name_fixed
+        config: 
+         severity: warn
+         store_failures: true
+     - player_name_maps_to_one_id:
+        arguments: 
+         player_id: id_fixed
+         player_name: name_fixed
+        config: 
+         severity: warn
+         store_failures: true
+    columns:
+      - name: tourney_id
+        description: "Source identifier for the tournament edition containing the match."
+        data_tests:
+          - not_null
+      - name: tourney_name
+        description: "Name of the tournament as supplied by the source."
+        data_tests:
+          - not_null
+      - name: surface
+        description: "Court surface recorded for the tournament."
+      - name: draw_size
+        description: "Number of player slots in the tournament draw"
+      - name: tourney_level
+        description: "{{ doc('atp_tourney_level') }}"
+      - name: indoor
+        description: "Tournament setting: I for indoor or O for outdoor"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['O','I']
+      - name: tourney_date
+        description: "Date the tournament began."
+      - name: tourney_match_num
+        description: "Source match sequence number within the tournament."
+      - name: winner_id
+        description: "Source identifier for the winning player."
+      - name: winner_id_fixed
+        description: "Canonical identifier for the winning player" 
+      - name: winner_seed
+        description: "Tournament seed assigned to the winning player, when seeded."
+      - name: winner_entry
+        description: "{{doc('player_entry') }}"
+        data_tests:
+         - accepted_values:
+            arguments: 
+             values: ['WC', 'Q', 'LL', 'PR', 'SR', 'ALT', 'A', 'SE', 'ITF', 'IP', 'UP', 'NG']
+      - name: winner_name
+        description: "Name of the winning player as recorded in the source."
+        data_tests:
+          - not_null
+      - name: winner_name_fixed
+        description: 	"Canonical name for the winning player."
+        data_tests:
+          - not_null
+      - name: winner_hand
+        description: "{{ doc('player_hand') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['R', 'L', 'A', 'U']
+      - name: winner_ht
+        description: "Height of the winning player in centimeters, when supplied."
+      - name: winner_country_code
+        description: "Country code as defined by the international olympic committee for the winning player, when supplied."
+      - name: winner_age
+        description: "Age of the winning player at the time of the match."
+      - name: winner_rank
+        description: "ATP ranking of the winning player at the time of the match."
+      - name: winner_rank_points
+        description: "ATP ranking points held by the winning player at the time of the match."
+      - name: loser_id
+        description: "Source identifier for the losing player."
+      - name: loser_id_fixed
+        description: "Canonical identifier for the losing player" 
+      - name: loser_seed
+        description: "Tournament seed assigned to the losing player, when seeded."
+      - name: loser_entry
+        description: "{{ doc('player_entry') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['WC', 'Q', 'LL', 'PR', 'SR', 'ALT', 'A', 'SE', 'ITF', 'IP', 'UP', 'NG']
+      - name: loser_name
+        description: "Name of the losing player as recorded in the source."
+        data_tests:
+          - not_null
+      - name: loser_name_fixed
+        description: "Canonical name for the losing player."
+        data_tests:
+          - not_null
+      - name: loser_hand
+        description: "{{ doc('player_hand') }}"
+        data_tests:
+          - accepted_values:
+             arguments: 
+              values: ['R','L','A','U']
+      - name: loser_ht
+        description: "Height of the losing player in centimeters, when supplied."
+      - name: loser_country_code
+        description: "Country code as defined by the international olympic committee for the losing player, when supplied."
+      - name: loser_age
+        description: "Age of the losing player at the time of the match."
+      - name: loser_rank
+        description: "ATP ranking of the losing player at the time of the match."
+      - name: loser_rank_points
+        description: "ATP ranking points held by the losing player at the time of the match."
+      - name: score
+        description: "Final match score as supplied by the source."
+      - name: best_of
+        description: "Maximum number of sets scheduled for the match."
+      - name: round
+        description: "Tournament round in which the match was played."
+      - name: match_duration
+        description: "Match duration in minutes, when supplied."
+      - name: w_ace
+        description: "Aces served by the winning player."
+      - name: w_df
+        description: "Double faults served by the winning player."
+      - name: w_svpt
+        description: "Total service points played by the winning player."
+      - name: w_1stin
+        description: "First serves made by the winning player."
+      - name: w_1stwon
+        description: "First-serve points won by the winning player."
+      - name: w_2ndwon
+        description: "Second-serve points won by the winning player."
+      - name: w_svgms
+        description: "Service games played by the winning player."
+      - name: w_bpsaved
+        description: "Break points saved by the winning player."
+      - name: w_bpfaced
+        description: "Break points faced by the winning player."
+      - name: l_ace
+        description: "Aces served by the losing player."
+      - name: l_df
+        description: "Double faults served by the losing player."
+      - name: l_svpt
+        description: "Total service points played by the losing player."
+      - name: l_1stin
+        description: "First serves made by the losing player."
+      - name: l_1stwon
+        description: "First-serve points won by the losing player."
+      - name: l_2ndwon
+        description: "Second-serve points won by the losing player."
+      - name: l_svgms
+        description: "Service games played by the losing player."
+      - name: l_bpsaved
+        description: "Break points saved by the losing player."
+      - name: l_bpfaced
+        description: "Break points faced by the losing player."

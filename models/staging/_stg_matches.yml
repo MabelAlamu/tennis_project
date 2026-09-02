@@ -1,0 +1,315 @@
+version: 2
+
+models:
+  - name: stg_raw__atp_matches
+    description: "ATP match results staged from the raw feed. One row represents a recorded match result."
+    columns:
+      - name: tourney_id
+        description: "Source identifier for the tournament edition."
+        data_type: VARCHAR
+        data_tests:
+          - not_null
+      - name: tourney_name
+        description: "Name of the tournament."
+        data_type: VARCHAR
+      - name: surface
+        description: "Court surface for the tournament."
+        data_type: VARCHAR
+      - name: draw_size
+        description: "Number of player slots in the draw."
+        data_type: NUMBER
+      - name: tourney_level
+        description: "Competition level for the tournament."
+        data_type: VARCHAR
+      - name: indoor
+        description: "Indoor or outdoor tournament indicator."
+        data_type: VARCHAR
+      - name: tourney_date
+        description: "Date the tournament began."
+        data_type: DATE
+      - name: tourney_match_num
+        description: "Match sequence number within the tournament feed."
+        data_type: NUMBER
+      - name: winner_id
+        description: "Source identifier for the winning player."
+        data_type: NUMBER
+      - name: winner_seed
+        description: "Tournament seed for the winner, when assigned."
+        data_type: VARCHAR
+      - name: winner_entry
+        description: "Entry code for the winner, when supplied."
+        data_type: VARCHAR
+      - name: winner_name
+        description: "Name of the winning player."
+        data_type: VARCHAR
+      - name: winner_hand
+        description: "Playing hand of the winner, when supplied."
+        data_type: VARCHAR
+      - name: winner_ht
+        description: "Height of the winner in centimeters, when supplied."
+        data_type: NUMBER
+      - name: winner_country_code
+        description: "IOC country code for the winner, when supplied."
+        data_type: VARCHAR
+      - name: winner_age
+        description: "Winner's age at the time of the match."
+        data_type: FLOAT
+      - name: winner_rank
+        description: "Winner's tour ranking at match time."
+        data_type: NUMBER
+      - name: winner_rank_points
+        description: "Winner's ranking points at match time."
+        data_type: NUMBER
+      - name: loser_id
+        description: "Source identifier for the losing player."
+        data_type: NUMBER
+      - name: loser_seed
+        description: "Tournament seed for the loser, when assigned."
+        data_type: VARCHAR
+      - name: loser_entry
+        description: "Entry code for the loser, when supplied."
+        data_type: VARCHAR
+      - name: loser_name
+        description: "Name of the losing player."
+        data_type: VARCHAR
+      - name: loser_hand
+        description: "Playing hand of the loser, when supplied."
+        data_type: VARCHAR
+      - name: loser_ht
+        description: "Height of the loser in centimeters, when supplied."
+        data_type: NUMBER
+      - name: loser_country_code
+        description: "IOC country code for the loser, when supplied."
+        data_type: VARCHAR
+      - name: loser_age
+        description: "Loser's age at the time of the match."
+        data_type: FLOAT
+      - name: loser_rank
+        description: "Loser's tour ranking at match time."
+        data_type: NUMBER
+      - name: loser_rank_points
+        description: "Loser's ranking points at match time."
+        data_type: NUMBER
+      - name: score
+        description: "Final match score as supplied by the source."
+        data_type: VARCHAR
+      - name: best_of
+        description: "Maximum number of sets scheduled."
+        data_type: NUMBER
+      - name: round
+        description: "Tournament round for the match."
+        data_type: VARCHAR
+      - name: match_duration
+        description: "Match duration in minutes, when supplied."
+        data_type: NUMBER
+      - name: w_ace
+        description: "Aces served by the winner."
+        data_type: NUMBER
+      - name: w_df
+        description: "Double faults served by the winner."
+        data_type: NUMBER
+      - name: w_svpt
+        description: "Service points played by the winner."
+        data_type: NUMBER
+      - name: w_1stin
+        description: "First serves made by the winner."
+        data_type: NUMBER
+      - name: w_1stwon
+        description: "First-serve points won by the winner."
+        data_type: NUMBER
+      - name: w_2ndwon
+        description: "Second-serve points won by the winner."
+        data_type: NUMBER
+      - name: w_svgms
+        description: "Service games played by the winner."
+        data_type: NUMBER
+      - name: w_bpsaved
+        description: "Break points saved by the winner."
+        data_type: NUMBER
+      - name: w_bpfaced
+        description: "Break points faced by the winner."
+        data_type: NUMBER
+      - name: l_ace
+        description: "Aces served by the loser."
+        data_type: NUMBER
+      - name: l_df
+        description: "Double faults served by the loser."
+        data_type: NUMBER
+      - name: l_svpt
+        description: "Service points played by the loser."
+        data_type: NUMBER
+      - name: l_1stin
+        description: "First serves made by the loser."
+        data_type: NUMBER
+      - name: l_1stwon
+        description: "First-serve points won by the loser."
+        data_type: NUMBER
+      - name: l_2ndwon
+        description: "Second-serve points won by the loser."
+        data_type: NUMBER
+      - name: l_svgms
+        description: "Service games played by the loser."
+        data_type: NUMBER
+      - name: l_bpsaved
+        description: "Break points saved by the loser."
+        data_type: NUMBER
+      - name: l_bpfaced
+        description: "Break points faced by the loser."
+        data_type: NUMBER
+
+  - name: stg_raw__wta_matches
+    description: "WTA match results staged from the raw feed. One row represents a recorded match result."
+    columns:
+      - name: tourney_id
+        description: "Source identifier for the tournament edition."
+        data_type: VARCHAR
+        data_tests:
+          - not_null
+      - name: tourney_name
+        description: "Name of the tournament."
+        data_type: VARCHAR
+      - name: surface
+        description: "Court surface for the tournament."
+        data_type: VARCHAR
+      - name: draw_size
+        description: "Number of player slots in the draw."
+        data_type: NUMBER
+      - name: tourney_level
+        description: "Competition level for the tournament."
+        data_type: VARCHAR
+      - name: indoor
+        description: "Indoor or outdoor tournament indicator."
+        data_type: VARCHAR
+      - name: tourney_date
+        description: "Date the tournament began."
+        data_type: DATE
+      - name: tourney_match_num
+        description: "Match sequence number within the tournament feed."
+        data_type: NUMBER
+      - name: winner_id
+        description: "Source identifier for the winning player."
+        data_type: NUMBER
+      - name: winner_seed
+        description: "Tournament seed for the winner, when assigned."
+        data_type: VARCHAR
+      - name: winner_entry
+        description: "Entry code for the winner, when supplied."
+        data_type: VARCHAR
+      - name: winner_name
+        description: "Name of the winning player."
+        data_type: VARCHAR
+      - name: winner_hand
+        description: "Playing hand of the winner, when supplied."
+        data_type: VARCHAR
+      - name: winner_ht
+        description: "Height of the winner in centimeters, when supplied."
+        data_type: NUMBER
+      - name: winner_country_code
+        description: "IOC country code for the winner, when supplied."
+        data_type: VARCHAR
+      - name: winner_age
+        description: "Winner's age at the time of the match."
+        data_type: FLOAT
+      - name: winner_rank
+        description: "Winner's tour ranking at match time."
+        data_type: NUMBER
+      - name: winner_rank_points
+        description: "Winner's ranking points at match time."
+        data_type: NUMBER
+      - name: loser_id
+        description: "Source identifier for the losing player."
+        data_type: NUMBER
+      - name: loser_seed
+        description: "Tournament seed for the loser, when assigned."
+        data_type: VARCHAR
+      - name: loser_entry
+        description: "Entry code for the loser, when supplied."
+        data_type: VARCHAR
+      - name: loser_name
+        description: "Name of the losing player."
+        data_type: VARCHAR
+      - name: loser_hand
+        description: "Playing hand of the loser, when supplied."
+        data_type: VARCHAR
+      - name: loser_ht
+        description: "Height of the loser in centimeters, when supplied."
+        data_type: NUMBER
+      - name: loser_country_code
+        description: "IOC country code for the loser, when supplied."
+        data_type: VARCHAR
+      - name: loser_age
+        description: "Loser's age at the time of the match."
+        data_type: FLOAT
+      - name: loser_rank
+        description: "Loser's tour ranking at match time."
+        data_type: NUMBER
+      - name: loser_rank_points
+        description: "Loser's ranking points at match time."
+        data_type: NUMBER
+      - name: score
+        description: "Final match score as supplied by the source."
+        data_type: VARCHAR
+      - name: best_of
+        description: "Maximum number of sets scheduled."
+        data_type: NUMBER
+      - name: round
+        description: "Tournament round for the match."
+        data_type: VARCHAR
+      - name: match_duration
+        description: "Match duration in minutes, when supplied."
+        data_type: NUMBER
+      - name: w_ace
+        description: "Aces served by the winner."
+        data_type: NUMBER
+      - name: w_df
+        description: "Double faults served by the winner."
+        data_type: NUMBER
+      - name: w_svpt
+        description: "Service points played by the winner."
+        data_type: NUMBER
+      - name: w_1stin
+        description: "First serves made by the winner."
+        data_type: NUMBER
+      - name: w_1stwon
+        description: "First-serve points won by the winner."
+        data_type: NUMBER
+      - name: w_2ndwon
+        description: "Second-serve points won by the winner."
+        data_type: NUMBER
+      - name: w_svgms
+        description: "Service games played by the winner."
+        data_type: NUMBER
+      - name: w_bpsaved
+        description: "Break points saved by the winner."
+        data_type: NUMBER
+      - name: w_bpfaced
+        description: "Break points faced by the winner."
+        data_type: NUMBER
+      - name: l_ace
+        description: "Aces served by the loser."
+        data_type: NUMBER
+      - name: l_df
+        description: "Double faults served by the loser."
+        data_type: NUMBER
+      - name: l_svpt
+        description: "Service points played by the loser."
+        data_type: NUMBER
+      - name: l_1stin
+        description: "First serves made by the loser."
+        data_type: NUMBER
+      - name: l_1stwon
+        description: "First-serve points won by the loser."
+        data_type: NUMBER
+      - name: l_2ndwon
+        description: "Second-serve points won by the loser."
+        data_type: NUMBER
+      - name: l_svgms
+        description: "Service games played by the loser."
+        data_type: NUMBER
+      - name: l_bpsaved
+        description: "Break points saved by the loser."
+        data_type: NUMBER
+      - name: l_bpfaced
+        description: "Break points faced by the loser."
+        data_type: NUMBER
+
