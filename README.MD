@@ -69,7 +69,7 @@ Known corrections are stored in version-controlled dbt seeds instead of embedded
 
 The project includes source profiling, reusable generic tests, singular transformation checks, primary-key and relationship tests, accepted-value checks, and stored test failures for investigation. Reviewed corrections and legitimate exceptions are handled separately so known source behaviour does not hide new issues.
 
-Detailed findings, correction logic, test design, and accepted exceptions are documented in [tennis_docs.md](tennis_docs.md#data-quality-and-testing).
+Detailed findings, correction logic, test design, and accepted exceptions are documented in [tennis_docs.md](models/tennis_docs.md#data-quality-and-testing).
 
 ## CI/CD
 
@@ -78,7 +78,7 @@ CI/CD uses dbt's native GitHub integration and job orchestration. Pull requests 
 - Pull-request CI: `dbt build --select +state:modified+`
 - Production deployment: `dbt build`
 
-The full workflow is documented in [tennis_docs.md](tennis_docs.md#cicd).
+The full workflow is documented in [tennis_docs.md](models/tennis_docs.md#cicd).
 
 ## Key Engineering Decisions
 
@@ -89,7 +89,7 @@ The full workflow is documented in [tennis_docs.md](tennis_docs.md#cicd).
 - Excluded unverifiable conflicting duplicate versions rather than choosing one without evidence.
 - Retained surface at match grain where tournament-level consistency does not hold.
 
-More detailed reasoning is available in [tennis_docs.md](tennis_docs.md).
+More detailed reasoning is available in [tennis_docs.md](models/tennis_docs.md).
 
 ## Tech Stack
 
@@ -112,7 +112,7 @@ dbt build
 
 ## Documentation
 
-- [Technical decisions, data quality, testing, and CI/CD](tennis_docs.md)
+- [Technical decisions, data quality, testing, and CI/CD](models/tennis_docs.md)
 - Model and column definitions are maintained in dbt YAML files and reusable `doc()` blocks.
 
 ## Why I Built This Project
