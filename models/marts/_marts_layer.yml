@@ -72,3 +72,124 @@ models:
 
       - name: tourney_winner
         description: Name of the player who won the tournament.
+
+  - name: fact_player_match
+    description: >-
+      One row per player's participation in a recorded ATP or WTA match from
+      January 1, 2000 onward. Contains match context, player attributes as
+      recorded at match time, and player-level serve statistics for analysis.
+    columns:
+      - name: player_match_id
+        data_type: varchar
+        description: Unique identifier for a player's participation in a recorded match.
+        data_tests:
+          - not_null
+          - unique
+      - name: match_id
+        data_type: varchar
+        description: "{{ doc('match_id') }}"
+        data_tests:
+          - not_null
+      - name: tourney_id
+        data_type: varchar
+        description: Foreign key identifying the tournament edition in which the match was played.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_tourney')
+                field: tourney_id
+      - name: surface
+        data_type: varchar
+        description: >-
+          Court surface on which the match was played. Stored at match grain
+          because team competitions such as the Davis Cup and Billie Jean King
+          Cup can contain matches played on different surfaces within the same
+          canonical tournament grouping.
+      - name: player_id
+        data_type: varchar
+        description: Foreign key identifying the player represented by this fact row.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_player')
+                field: player_id
+      - name: opponent_id
+        data_type: varchar
+        description: Foreign key identifying the opposing player in the match.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_player')
+                field: player_id
+      - name: tourney_match_num
+        data_type: number
+        description: "{{ doc('tourney_match_num') }}"
+      - name: result
+        data_type: varchar
+        description: Whether the player represented by the row won or lost the match.
+      - name: round
+        data_type: varchar
+        description: "{{ doc('round') }}"
+      - name: score
+        data_type: varchar
+        description: "{{ doc('score') }}"
+      - name: best_of
+        data_type: number
+        description: "{{ doc('best_of') }}"
+      - name: match_duration
+        data_type: number
+        description: "{{ doc('match_duration') }}"
+      - name: match_status
+        data_type: varchar
+        description: Recorded outcome status of the match, such as completed, retired, defaulted, or walkover.
+      - name: player_seed
+        data_type: number
+        description: Tournament seed assigned to the player, when seeded.
+      - name: player_entry
+        data_type: varchar
+        description: Source entry code describing how the player entered the tournament draw.
+      - name: player_entry_category
+        data_type: varchar
+        description: Standardised category describing how the player entered the tournament draw.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["ALT", "PR", "ITF", "WC", "Q", "LL", "SE", "UP", "NG"]
+      - name: player_age
+        data_type: float
+        description: Age of the player at the time of the match.
+      - name: player_rank
+        data_type: number
+        description: ATP or WTA ranking of the player at the time of the match.
+      - name: player_rank_points
+        data_type: number
+        description: ATP or WTA ranking points held by the player at the time of the match.
+      - name: ace
+        data_type: number
+        description: Aces served by the player during the match.
+      - name: double_fault
+        data_type: number
+        description: Double faults served by the player during the match.
+      - name: total_service_points
+        data_type: number
+        description: Total service points played by the player during the match.
+      - name: first_serve_in
+        data_type: number
+        description: First serves made by the player during the match.
+      - name: first_serve_won
+        data_type: number
+        description: First-serve points won by the player during the match.
+      - name: second_serve_won
+        data_type: number
+        description: Second-serve points won by the player during the match.
+      - name: service_games
+        data_type: number
+        description: Service games played by the player during the match.
+      - name: bp_saved
+        data_type: number
+        description: Break points saved by the player during the match.
+      - name: bp_faced
+        data_type: number
+        description: Break points faced by the player during the match.
