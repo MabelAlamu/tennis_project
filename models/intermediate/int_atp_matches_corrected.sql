@@ -50,14 +50,14 @@ id_fixed as (
         on s.winner_id = mw.old_player_id
 
     left join corr_w as cw
-        on s.winner_id = cw.bad_player_id
+        on equal_null(s.winner_id, cw.bad_player_id)
         and s.winner_name = cw.player_name
 
     left join merge_l as ml
         on s.loser_id = ml.old_player_id
 
     left join corr_l as cl
-        on s.loser_id = cl.bad_player_id
+        on equal_null(s.loser_id, cl.bad_player_id)
         and s.loser_name = cl.player_name
 
 ),
