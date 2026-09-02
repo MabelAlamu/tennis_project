@@ -1,38 +1,153 @@
+version: 2
+
 macros:
-  - name: clean_entry_code
-    description: >
-      Returns a cleaned entry-method code. Handles two known source issues:
-      compound values like '6/ITF' (splits off the entry-method half), and
-      entry codes leaked into the seed column instead of entry (rescues
-      them here when entry itself is blank). Standardizes casing/whitespace
-      so accepted_values tests match cleanly.
+  - name: get_player_basic_info
+    description: >-
+      Reshapes the winner and loser identity columns from a match relation into
+      a shared players CTE containing player_id, player_name, and player_type.
+      Used by reusable player-identity tests so the same logic can be applied
+      to both sides of a match record.
     arguments:
-      - name: entry_col
+      - name: model
+        type: relation
+        description: Match model or relation containing winner and loser player columns.
+      - name: player_id
         type: string
-        description: >
-         Represents how the player entered the tournament, such as wildcard, qualifier, alternate, or lucky loser. 
-         Entry column reference to clean, e.g. 's.winner_entry'.
-      - name: seed_col
+        description: Column suffix used to identify the winner and loser player ID fields.
+      - name: player_name
         type: string
-        description: >
-         Represents the player’s assigned tournament seed and may contain a misplaced entry designation in source data.
-         Corresponding seed column, used as a fallback source for leaked entry codes.
+        description: Column suffix used to identify the winner and loser player name fields.
+
+
+  - name: get_player_service_stats
+    description: >-
+      Reshapes winner and loser service statistics from a match relation into
+      one shared player-level CTE. It retains the player identifier and name so
+      invalid service-stat records can be traced back to the affected player
+      and match. Used by the first-serve-in and first-serve-won generic tests.
+    arguments:
+      - name: model
+        type: relation
+        description: Match model or relation containing winner and loser player fields and service statistics.
+      - name: player_id
+        type: string
+        description: Column suffix used to identify the winner and loser player ID fields.
+      - name: player_name
+        type: string
+        description: Column suffix used to identify the winner and loser player name fields.
+
 
   - name: clean_numeric_seed
-    description: >
-      Returns the tournament seed as a clean numeric value. Tries the seed
-      column first (safely returns null instead of erroring on leaked entry
-      codes like WC/Q/ALT/LL). If that's not a valid number, falls back to
-      extracting a numeric seed from a compound entry value like '6/ITF'
-      (the source's format for combined seed + entry method).
+    description: >-
+      Returns a numeric tournament seed after separating malformed or combined
+      seed and entry values. Values that cannot be interpreted confidently as
+      numeric seeds are returned as null.
     arguments:
       - name: seed_col
         type: string
-        description: >
-         Represents the player’s assigned numeric seed within the tournament.
-         Column reference to clean, e.g. 's.winner_seed'.
+        description: SQL expression or qualified column containing the source seed value.
       - name: entry_col
         type: string
-        description: >
-         Represents how the player entered the tournament and may contain a combined seed and entry designation.
-         Corresponding entry column, used as a fallback source for a compound seed/entry value.
+        description: SQL expression or qualified column containing the source entry value.
+
+
+  - name: clean_entry_code
+    description: >-
+      Extracts and standardises the tournament entry code when source entry and
+      seed information are inconsistently formatted or combined in one field.
+    arguments:
+      - name: entry_col
+        type: string
+        description: SQL expression or qualified column containing the source entry value.
+      - name: seed_col
+        type: string
+        description: SQL expression or qualified column containing the source seed value.
+
+
+  - name: deduplicate_matches
+    description: >-
+      Applies the shared match deduplication policy to a corrected ATP or WTA
+      relation. Apparent matches with conflicting score versions are excluded;
+      where repeated records agree on score, the row with the earliest
+      tourney_match_num is retained.
+    arguments:
+      - name: relation
+        type: string
+        description: Name of the model relation or CTE to deduplicate.
+      - name: winner_id_column
+        type: string
+        description: Name of the winner ID column used in the apparent-match key.
+      - name: loser_id_column
+        type: string
+        description: Name of the loser ID column used in the apparent-match key.
+
+
+  - name: test_player_name_maps_to_one_id
+    description: >-
+      Generic data test that returns player names associated with multiple
+      player IDs when at least one name-and-ID pair has not been reviewed and
+      accepted. Legitimate shared names and reviewed identity variations are
+      recorded separately so they do not hide new mapping issues.
+    arguments:
+      - name: model
+        type: relation
+        description: Match model containing winner and loser player identity columns.
+      - name: player_id
+        type: string
+        description: Column suffix used to identify the winner and loser player ID fields.
+      - name: player_name
+        type: string
+        description: Column suffix used to identify the winner and loser player name fields.
+
+
+  - name: test_player_id_maps_to_one_name
+    description: >-
+      Generic data test that returns player IDs associated with multiple names
+      when at least one ID-and-name pair has not been reviewed and accepted.
+      The test monitors unexpected identity changes while allowing documented
+      spelling, casing, abbreviation, punctuation, and transliteration variants.
+    arguments:
+      - name: model
+        type: relation
+        description: Match model containing winner and loser player identity columns.
+      - name: player_id
+        type: string
+        description: Column suffix used to identify the winner and loser player ID fields.
+      - name: player_name
+        type: string
+        description: Column suffix used to identify the winner and loser player name fields.
+
+
+  - name: test_first_serve_won_valid
+    description: >-
+      Generic data test that returns player-match records where first-serve
+      points won exceed first serves made or total service points, indicating
+      internally inconsistent source serve statistics.
+    arguments:
+      - name: model
+        type: relation
+        description: Match model containing winner and loser player identity columns.
+      - name: player_id
+        type: string
+        description: Column suffix used to identify the winner and loser player ID fields.
+      - name: player_name
+        type: string
+        description: Column suffix used to identify the winner and loser player name fields.
+
+
+  - name: test_first_serve_in_valid
+    description: >-
+      Generic data test that returns player-match records where first serves
+      made exceed total service points, indicating internally inconsistent
+      source serve statistics.
+    arguments:
+      - name: model
+        type: relation
+        description: Match model containing winner and loser player identity columns.
+      - name: player_id
+        type: string
+        description: Column suffix used to identify the winner and loser player ID fields.
+      - name: player_name
+        type: string
+        description: Column suffix used to identify the winner and loser player name fields.
+
