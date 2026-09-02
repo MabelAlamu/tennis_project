@@ -1,0 +1,199 @@
+models:
+  - name: int_matches_tourney_enriched
+    description: >-
+      One row per recorded ATP or WTA match from January 1, 2000 onward,
+      enriched with canonical tournament attributes and identifiers while
+      retaining the corresponding source values for traceability.
+    columns:
+      - name: tourney_id
+        description: Canonical identifier for the tournament edition, consistent across ATP and WTA match records.
+        data_tests:
+          - not_null
+      - name: match_id
+        data_type: varchar
+        description: "{{ doc('match_id') }}"
+        data_tests:
+          - not_null
+          - unique
+      - name: tourney_id_raw
+        data_type: varchar
+        description: Tournament-edition identifier supplied by the source, retained for traceability.
+      - name: surface
+        data_type: varchar
+        description: "{{ doc('surface') }}"
+      - name: indoor
+        data_type: varchar
+        description: "{{ doc('indoor') }}"
+      - name: tourney_date
+        data_type: date
+        description: Source-reported date associated with the match's tournament record.
+      - name: tourney_match_num
+        data_type: number
+        description: "{{ doc('tourney_match_num') }}"
+      - name: winner_id
+        data_type: varchar
+        description: "{{ doc('winner_id') }}"
+      - name: winner_id_fixed
+        data_type: varchar
+        description: "{{ doc('winner_id_fixed') }}"
+      - name: winner_seed
+        data_type: number
+        description: "{{ doc('winner_seed') }}"
+      - name: winner_entry
+        data_type: varchar
+        description: "{{ doc('winner_entry') }}"
+      - name: winner_name
+        data_type: varchar
+        description: "{{ doc('winner_name') }}"
+      - name: winner_name_fixed
+        data_type: varchar
+        description: "{{ doc('winner_name_fixed') }}"
+      - name: winner_hand
+        data_type: varchar
+        description: "{{ doc('winner_hand') }}"
+      - name: winner_ht
+        data_type: number
+        description: "{{ doc('winner_ht') }}"
+      - name: winner_country_code
+        data_type: varchar
+        description: "{{ doc('winner_country_code') }}"
+      - name: winner_age
+        data_type: float
+        description: "{{ doc('winner_age') }}"
+      - name: winner_rank
+        data_type: number
+        description: "{{ doc('winner_rank') }}"
+      - name: winner_rank_points
+        data_type: number
+        description: "{{ doc('winner_rank_points') }}"
+      - name: loser_id
+        data_type: varchar
+        description: "{{ doc('loser_id') }}"
+      - name: loser_id_fixed
+        data_type: varchar
+        description: "{{ doc('loser_id_fixed') }}"
+      - name: loser_seed
+        data_type: number
+        description: "{{ doc('loser_seed') }}"
+      - name: loser_entry
+        data_type: varchar
+        description: "{{ doc('loser_entry') }}"
+      - name: loser_name
+        data_type: varchar
+        description: "{{ doc('loser_name') }}"
+      - name: loser_name_fixed
+        data_type: varchar
+        description: "{{ doc('loser_name_fixed') }}"
+      - name: loser_hand
+        data_type: varchar
+        description: "{{ doc('loser_hand') }}"
+      - name: loser_ht
+        data_type: number
+        description: "{{ doc('loser_ht') }}"
+      - name: loser_country_code
+        data_type: varchar
+        description: "{{ doc('loser_country_code') }}"
+      - name: loser_age
+        data_type: float
+        description: "{{ doc('loser_age') }}"
+      - name: loser_rank
+        data_type: number
+        description: "{{ doc('loser_rank') }}"
+      - name: loser_rank_points
+        data_type: number
+        description: "{{ doc('loser_rank_points') }}"
+      - name: score
+        data_type: varchar
+        description: "{{ doc('score') }}"
+      - name: best_of
+        data_type: number
+        description: "{{ doc('best_of') }}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [3, 5]
+      - name: round
+        data_type: varchar
+        description: "{{ doc('round') }}"
+      - name: match_duration
+        data_type: number
+        description: "{{ doc('match_duration') }}"
+      - name: w_ace
+        data_type: number
+        description: "{{ doc('w_ace') }}"
+      - name: w_df
+        data_type: number
+        description: "{{ doc('w_df') }}"
+      - name: w_svpt
+        data_type: number
+        description: "{{ doc('w_svpt') }}"
+      - name: w_1stin
+        data_type: number
+        description: "{{ doc('w_1stin') }}"
+      - name: w_1stwon
+        data_type: number
+        description: "{{ doc('w_1stwon') }}"
+      - name: w_2ndwon
+        data_type: number
+        description: "{{ doc('w_2ndwon') }}"
+      - name: w_svgms
+        data_type: number
+        description: "{{ doc('w_svgms') }}"
+      - name: w_bpsaved
+        data_type: number
+        description: "{{ doc('w_bpsaved') }}"
+      - name: w_bpfaced
+        data_type: number
+        description: "{{ doc('w_bpfaced') }}"
+      - name: l_ace
+        data_type: number
+        description: "{{ doc('l_ace') }}"
+      - name: l_df
+        data_type: number
+        description: "{{ doc('l_df') }}"
+      - name: l_svpt
+        data_type: number
+        description: "{{ doc('l_svpt') }}"
+      - name: l_1stin
+        data_type: number
+        description: "{{ doc('l_1stin') }}"
+      - name: l_1stwon
+        data_type: number
+        description: "{{ doc('l_1stwon') }}"
+      - name: l_2ndwon
+        data_type: number
+        description: "{{ doc('l_2ndwon') }}"
+      - name: l_svgms
+        data_type: number
+        description: "{{ doc('l_svgms') }}"
+      - name: l_bpsaved
+        data_type: number
+        description: "{{ doc('l_bpsaved') }}"
+      - name: l_bpfaced
+        data_type: number
+        description: "{{ doc('l_bpfaced') }}"
+      - name: tour
+        data_type: varchar
+        description: "{{ doc('tour') }}"
+      - name: match_status
+        data_type: varchar
+        description: Recorded outcome status of the match, such as completed, retired, defaulted, or walkover.
+      - name: tourney_name
+        data_type: varchar
+        description: Canonical tournament name after applying reviewed source-name mappings and team-competition standardisation.
+      - name: tourney_year
+        data_type: number
+        description: Calendar year in which the tournament edition began.
+        data_tests:
+          - not_null
+      - name: tourney_level
+        data_type: varchar
+        description: Corrected competition level assigned to the tournament edition.
+      - name: draw_size
+        data_type: number
+        description: Corrected number of positions in the tournament draw.
+      - name: tourney_start_date
+        data_type: date
+        description: Earliest recorded date for the canonical tournament edition, used as its standard start date.
+        data_tests:
+          - not_null

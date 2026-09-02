@@ -1,0 +1,143 @@
+models:
+  - name: int_matches_unpivoted
+    description: >-
+      One row per player per recorded ATP or WTA match from January 1, 2000
+      onward, including tournament context, match result, ranking, player
+      attributes, and serve statistics.
+    columns:
+      - name: player_match_id
+        data_type: varchar
+        description: Unique identifier for a player's participation in a recorded match.
+        data_tests:
+          - not_null
+          - unique
+      - name: match_id
+        data_type: varchar
+        description: "{{ doc('match_id') }}"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('int_matches_tourney_enriched')
+                field: match_id
+      - name: tour
+        data_type: varchar
+        description: "{{ doc('tour') }}"
+      - name: tourney_id
+        data_type: varchar
+        description: Canonical identifier for the tournament edition, consistent across ATP and WTA match records.
+        data_tests:
+          - not_null
+      - name: tourney_name
+        data_type: varchar
+        description: "{{ doc('tourney_name') }}"
+      - name: surface
+        data_type: varchar
+        description: "{{ doc('surface') }}"
+      - name: draw_size
+        data_type: number
+        description: "{{ doc('draw_size') }}"
+      - name: tourney_level
+        data_type: varchar
+        description: "{{ doc('tourney_level') }}"
+      - name: indoor
+        data_type: varchar
+        description: "{{ doc('indoor') }}"
+      - name: tourney_start_date
+        data_type: date
+        description: Start date of the canonical tournament edition.
+      - name: tourney_year
+        data_type: number
+        description: Calendar year in which the tournament edition began.
+      - name: tourney_match_num
+        data_type: number
+        description: "{{ doc('tourney_match_num') }}"
+      - name: player_id
+        data_type: varchar
+        description: Canonical identifier representing the player consistently across match records.
+        data_tests:
+          - not_null
+      - name: player_name
+        data_type: varchar
+        description: Corrected name of the player participating in the match.
+      - name: result
+        data_type: varchar
+        description: Whether the player won or lost the match.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["win", "loss"]
+      - name: player_seed
+        data_type: number
+        description: Tournament seed assigned to the player, when seeded.
+      - name: player_entry
+        data_type: varchar
+        description: Source entry code describing how the player entered the tournament draw.
+      - name: player_hand
+        data_type: varchar
+        description: Dominant playing hand of the player.
+      - name: player_ht
+        data_type: number
+        description: Height of the player in centimetres, when available.
+      - name: player_country_code
+        data_type: varchar
+        description: IOC country code representing the player at the time of the match.
+      - name: player_age
+        data_type: float
+        description: Age of the player at the time of the match.
+      - name: player_rank
+        data_type: number
+        description: ATP or WTA ranking of the player at the time of the match.
+      - name: player_rank_points
+        data_type: number
+        description: ATP or WTA ranking points held by the player at the time of the match.
+      - name: ace
+        data_type: number
+        description: Aces served by the player during the match.
+      - name: double_fault
+        data_type: number
+        description: Double faults served by the player during the match.
+      - name: total_service_points
+        data_type: number
+        description: Total service points played by the player during the match.
+      - name: first_serve_in
+        data_type: number
+        description: First serves made by the player during the match.
+      - name: first_serve_won
+        data_type: number
+        description: First-serve points won by the player during the match.
+      - name: second_serve_won
+        data_type: number
+        description: Second-serve points won by the player during the match.
+      - name: service_games
+        data_type: number
+        description: Service games played by the player during the match.
+      - name: bp_saved
+        data_type: number
+        description: Break points saved by the player during the match.
+      - name: bp_faced
+        data_type: number
+        description: Break points faced by the player during the match.
+      - name: score
+        data_type: varchar
+        description: "{{ doc('score') }}"
+      - name: best_of
+        data_type: number
+        description: "{{ doc('best_of') }}"
+      - name: round
+        data_type: varchar
+        description: "{{ doc('round') }}"
+      - name: match_duration
+        data_type: number
+        description: "{{ doc('match_duration') }}"
+      - name: match_status
+        data_type: varchar
+        description: Recorded outcome status of the match, such as completed, retired, defaulted, or walkover.
+      - name: player_entry_category
+        data_type: varchar
+        description: Standardised category describing how the player entered the tournament draw.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["ALT", "PR", "ITF", "WC", "Q", "LL", "SE", "UP", "NG"]

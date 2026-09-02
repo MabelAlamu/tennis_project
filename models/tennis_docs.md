@@ -163,6 +163,10 @@ Entry category through which the winning player joined the tournament draw.
 Name of the winning player.
 {% enddocs %}
 
+{% docs winner_name_fixed %}
+Corrected winner name used downstream after applying reviewed source-data corrections.
+{% enddocs %}
+
 {% docs winner_hand %}
 Dominant playing hand of the winning player.
 {% enddocs %}
@@ -205,6 +209,10 @@ Entry category through which the losing player joined the tournament draw.
 
 {% docs loser_name %}
 Name of the losing player.
+{% enddocs %}
+
+{% docs loser_name_fixed %}
+Corrected winner name used downstream after applying reviewed source-data corrections.
 {% enddocs %}
 
 {% docs loser_hand %}
