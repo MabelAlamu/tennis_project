@@ -1,8 +1,6 @@
-{% macro get_player_service_stats(model, player_id, player_name, stg=true) %}
+{% macro get_player_service_stats(model, player_id, player_name) %}
 
 with combined as (
-
-    {% if stg %}
 
     select
         tourney_id,
@@ -27,22 +25,6 @@ with combined as (
         l_1stin as first_serve_in,
         l_svpt as total_service_points
     from {{ model }}
-
-    {% else %}
-
-    select
-        tourney_id,
-        {{ player_id }} as player_id,
-        {{ player_name }} as player_name,
-        player_type,
-        tourney_match_num,
-        first_serve_won,
-        first_serve_in,
-        total_service_points
-    from {{ model }}
-
-    {% endif %}
-
 )
 
 {% endmacro %}

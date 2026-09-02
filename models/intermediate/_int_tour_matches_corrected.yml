@@ -4,23 +4,23 @@ models:
     data_tests:
      - first_serve_won_valid:
         arguments: 
-         player_id: id
-         player_name: name
+         player_id: id_fixed
+         player_name: name_fixed
      - first_serve_in_valid:
         arguments: 
-         player_id: id
-         player_name: name
+         player_id: id_fixed
+         player_name: name_fixed
      - player_id_maps_to_one_name:
         arguments: 
-         player_id: id
-         player_name: name
+         player_id: id_fixed
+         player_name: name_fixed
          config: 
           severity: warn
           store_failures: true
      - player_name_maps_to_one_id:
         arguments: 
-         player_id: id
-         player_name: name
+         player_id: id_fixed
+         player_name: name_fixed
          config: 
           severity: warn
           store_failures: true
